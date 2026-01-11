@@ -1,0 +1,43 @@
+---
+config:
+  layout: dagre
+---
+flowchart TB
+ subgraph Dev["👨‍💻 Desenvolvedor"]
+        A["Push / Pull Request<br>no repositório GitHub"]
+  end
+ subgraph GH["🧩 GitHub Actions (Pipeline CI/CD)"]
+        B["CI Job: Terraform Init / Plan"]
+        C["Aprovação de PR<br>Merge na branch main"]
+        D["CD Job: Terraform Apply"]
+  end
+ subgraph Auth["🔐 Autenticação via OIDC"]
+        E["Emissão de Token OIDC<br>pelo GitHub"]
+        F["Azure AD Federation<br>confia no emissor GitHub"]
+        G["Service Principal (SP)<br>autentica sem secret"]
+  end
+ subgraph Azure["☁️ Azure Cloud"]
+        H["Terraform Provider (AzureRM)"]
+        I["Provisionamento de Recursos:<br>VNET, AKS, APIM, ACR,<br>PostgreSQL, App Insights"]
+  end
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H --> I
+     A:::dev
+     B:::gh
+     C:::gh
+     D:::gh
+     E:::auth
+     F:::auth
+     G:::auth
+     H:::azure
+     I:::azure
+    classDef dev fill:#fce4ec,stroke:#e91e63,stroke-width:1px
+    classDef gh fill:#e3f2fd,stroke:#2196f3,stroke-width:1px
+    classDef auth fill:#f3e5f5,stroke:#9c27b0,stroke-width:1px
+    classDef azure fill:#e8f5e9,stroke:#4caf50,stroke-width:1px
