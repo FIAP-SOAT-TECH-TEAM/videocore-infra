@@ -1,3 +1,4 @@
+name: videocore-infra
 services:
 
   adminer:

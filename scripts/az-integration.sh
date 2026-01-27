@@ -11,6 +11,7 @@ AZURITE_ACCOUNT_NAME="devstoreaccount1"
 AZURITE_ACCOUNT_KEY="Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw=="
 AZURITE_BLOB_ENDPOINT="http://127.0.0.1:10000/devstoreaccount1"
 CONTAINER_NAME="videos"
+IMAGE_CONTAINER_NAME="images"
 
 # ===============================
 # CONFIGURAÇÕES – SERVICE BUS (AMQP)
@@ -61,6 +62,13 @@ az storage container create \
   --blob-endpoint "$AZURITE_BLOB_ENDPOINT" \
   >/dev/null
 
+az storage container create \
+  --name "$IMAGE_CONTAINER_NAME" \
+  --account-name "$AZURITE_ACCOUNT_NAME" \
+  --account-key "$AZURITE_ACCOUNT_KEY" \
+  --blob-endpoint "$AZURITE_BLOB_ENDPOINT" \
+  >/dev/null
+
 az storage blob upload \
   --container-name "$CONTAINER_NAME" \
   --file "$VIDEO_PATH" \
@@ -69,7 +77,7 @@ az storage blob upload \
   --account-key "$AZURITE_ACCOUNT_KEY" \
   --blob-endpoint "$AZURITE_BLOB_ENDPOINT" \
   --metadata \
-    capture_timestamp="$VIDEO_TIMESTAMPS" \
+    frame_cut="$VIDEO_TIMESTAMPS" \
     user_id="$USER_ID" \
     request_id="$REQUEST_ID" \
   --content-type "video/mp4" \

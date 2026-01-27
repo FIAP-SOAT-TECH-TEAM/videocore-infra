@@ -27,6 +27,9 @@ show_help() {
   echo "  ./video stop:infra         Para a infraestrutura"
   echo "  ./video restart:all        Reinicia a infraestrutura"
   echo "  ./video az:pub             Publica um vídeo no Azurite e emite um evento no Azure Service Bus"
+  echo "  ./video az:view            Lista os arquivos do container images no Azurite"
+  echo "  ./video az:download        Baixa o arquivo mais recente do container images no Azurite"
+  echo "  ./video az:delete-all      Deleta todos os blobs do container images no Azurite"
   echo "  ./video help               Exibe a ajuda"
 }
 
@@ -85,6 +88,21 @@ case "$COMMAND" in
   az:pub)
     echo "Publicando vídeo no Azurite e emitindo evento no Azure Service Bus..."
     "$SCRIPTS_DIR/az-integration.sh"
+    ;;
+  az:view)
+    echo "Listando arquivos do container images..."
+    echo
+    "$SCRIPTS_DIR/az-view-files.sh"
+    ;;
+  az:download)
+    echo "Baixando o arquivo mais recente do container images..."
+    echo
+    "$SCRIPTS_DIR/az-download-file.sh"
+    ;;
+  az:delete-all)
+    echo "Deletando todos os blobs do container images..."
+    echo
+    "$SCRIPTS_DIR/az-delete-all.sh"
     ;;
   help)
     show_help
