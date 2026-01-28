@@ -20,7 +20,7 @@ cd "$PROJECT_ROOT/docker" || {
   exit 1
 }
 
-INFRA_CONTAINERS=$(docker ps --filter "name=videocore-(adminer|azure-service-bus-emulator|azure-service-bus-emulator-sql-server|azure-blob-emulator|smtp-server)" --format "{{.Names}}")
+INFRA_CONTAINERS=$(docker ps --filter "name=videocore-(azure-service-bus-emulator|azure-service-bus-emulator-sql-server|azure-blob-emulator|smtp-server)" --format "{{.Names}}")
 
 if [ -z "$INFRA_CONTAINERS" ]; then
   echo "Nenhum contêiner de infraestrutura em execução."
@@ -33,13 +33,12 @@ echo
 
 echo "-> Parando serviços de infraestrutura..."
 docker compose stop \
-  adminer \
   azure-service-bus-emulator \
   azure-service-bus-emulator-sql-server \
   azure-blob-storage-emulator \
   smtp-server
 
-STILL_RUNNING=$(docker ps --filter "name=videocore-(adminer|azure-service-bus-emulator|azure-service-bus-emulator-sql-server|azure-blob-emulator|smtp-server)" --format "{{.Names}}")
+STILL_RUNNING=$(docker ps --filter "name=videocore-(azure-service-bus-emulator|azure-service-bus-emulator-sql-server|azure-blob-emulator|smtp-server)" --format "{{.Names}}")
 
 if [ -z "$STILL_RUNNING" ]; then
   echo "===== Infraestrutura parada com sucesso ====="
@@ -49,7 +48,7 @@ else
   echo "-> Forçando parada completa..."
   docker compose down
 
-  STILL_RUNNING=$(docker ps --filter "name=videocore-(adminer|azure-service-bus-emulator|azure-service-bus-emulator-sql-server|azure-blob-emulator|smtp-server)" --format "{{.Names}}")
+  STILL_RUNNING=$(docker ps --filter "name=videocore-(azure-service-bus-emulator|azure-service-bus-emulator-sql-server|azure-blob-emulator|smtp-server)" --format "{{.Names}}")
   if [ -z "$STILL_RUNNING" ]; then
     echo "===== Infraestrutura parada com sucesso ====="
   else

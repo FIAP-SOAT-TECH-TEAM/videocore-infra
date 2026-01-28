@@ -55,10 +55,6 @@ while [ $SB_COUNT -lt $SB_RETRIES ]; do
   sleep 2
 done
 
-# Adminer
-echo "-> Iniciando Adminer..."
-docker compose up -d adminer
-
 # SMTP (MailDev)
 echo "-> Iniciando servidor SMTP (MailDev)..."
 docker compose up -d smtp-server
@@ -97,7 +93,6 @@ echo
 echo "===== Infraestrutura iniciada com sucesso ====="
 echo
 echo "Serviços disponíveis:"
-echo "- Adminer"
 echo "- Azure Service Bus Emulator"
 echo "- SMTP (MailDev)"
 echo "- Azure Blob Storage (Azurite)"

@@ -1,17 +1,6 @@
 name: videocore-infra
 services:
 
-  adminer:
-    image: adminer:latest
-    container_name: videocore-adminer
-    ports:
-      - "${ADMINER_PORT}:8080"
-    networks:
-      - videocore-network
-    restart: unless-stopped
-    env_file:
-      - .env
-
   azure-service-bus-emulator:
     image: mcr.microsoft.com/azure-messaging/servicebus-emulator:latest
     container_name: videocore-azure-service-bus-emulator
