@@ -46,7 +46,14 @@ echo ""
 # ===============================
 # IDS
 # ===============================
-USER_ID="$(uuidgen)"
+read -p "Informe o userId (Criado no LocalStack Cognito): " USER_ID
+echo ""
+
+if [ -z "$USER_ID" ]; then
+  echo "userId é obrigatório."
+  exit 1
+fi
+
 REQUEST_ID="$(uuidgen)"
 
 BLOB_RELATIVE_PATH="${CONTAINER_NAME}/${USER_ID}/${REQUEST_ID}/${VIDEO_NAME}"

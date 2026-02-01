@@ -89,6 +89,22 @@ while [ $AZ_COUNT -lt $AZ_RETRIES ]; do
   sleep 2
 done
 
+# LocalStack (AWS Emulator)
+echo "-> Iniciando LocalStack (Emulador AWS)..."
+docker compose up -d localstack
+LS_RETRIES=20
+LS_COUNT=0
+while [ $LS_COUNT -lt $LS_RETRIES ]; do
+  STATUS=$(docker inspect --format='{{.State.Status}}' videocore-localstack 2>/dev/null)
+  if [ "$STATUS" = "running" ]; then
+    echo "-> LocalStack está em execução!"
+    break
+  fi
+  LS_COUNT=$((LS_COUNT + 1))
+  echo "Aguardando LocalStack... ($LS_COUNT/$LS_RETRIES)"
+  sleep 2
+done
+
 echo
 echo "===== Infraestrutura iniciada com sucesso ====="
 echo
@@ -96,5 +112,6 @@ echo "Serviços disponíveis:"
 echo "- Azure Service Bus Emulator"
 echo "- SMTP (MailDev)"
 echo "- Azure Blob Storage (Azurite)"
+echo "- LocalStack (Emulador AWS)"
 echo
 echo "Use 'docker compose ps' para verificar o status."

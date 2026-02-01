@@ -56,6 +56,21 @@ services:
       - videocore-network
     env_file:
       - .env
+  
+  localstack:
+    image: localstack/localstack-pro:latest
+    container_name: videocore-localstack
+    restart: unless-stopped
+    ports:
+      - "${LOCALSTACK_EDGE_PORT}:4566"
+      - "4510-4559:4510-4559"
+    networks:
+      - videocore-network
+    volumes:
+      - "localstack_data:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    env_file:
+      - .env
 
 networks:
   videocore-network:
@@ -64,3 +79,4 @@ networks:
 volumes:
   az_svc_bus_sql_data:
   azurite_data:
+  localstack_data:

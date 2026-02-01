@@ -17,6 +17,7 @@ show_help() {
   echo "  stop:infra       Para apenas a infraestrutura"
   echo "  restart:all      Reinicia todos os serviços da infraestrutura"
   echo "  az:pub           Publica um vídeo no Azurite e emite um evento no Azure Service Bus"
+  echo "  init:user        Inicializa usuário no LocalStack Cognito"
   echo "  help             Exibe esta mensagem de ajuda"
   echo
   echo "Opções:"
@@ -30,6 +31,7 @@ show_help() {
   echo "  ./video az:view            Lista os arquivos do container images no Azurite"
   echo "  ./video az:download        Baixa o arquivo mais recente do container images no Azurite"
   echo "  ./video az:delete-all      Deleta todos os blobs do container images no Azurite"
+  echo "  ./video init:user          Inicializa usuário no LocalStack Cognito"
   echo "  ./video help               Exibe a ajuda"
 }
 
@@ -103,6 +105,10 @@ case "$COMMAND" in
     echo "Deletando todos os blobs do container images..."
     echo
     "$SCRIPTS_DIR/az-delete-all.sh"
+    ;;
+  init:user)
+    echo "Inicializando usuário no LocalStack Cognito..."
+    "$SCRIPTS_DIR/init-user.sh"
     ;;
   help)
     show_help
