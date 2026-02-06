@@ -11,7 +11,7 @@
               "DefaultMessageTimeToLive": "PT1H",
               "DuplicateDetectionHistoryTimeWindow": "PT20S",
               "LockDuration": "PT1M",
-              "MaxDeliveryCount": 3,
+              "MaxDeliveryCount": 1,
               "RequiresDuplicateDetection": false,
               "RequiresSession": false
             }
@@ -23,7 +23,7 @@
               "DefaultMessageTimeToLive": "PT1H",
               "DuplicateDetectionHistoryTimeWindow": "PT20S",
               "LockDuration": "PT1M",
-              "MaxDeliveryCount": 3,
+              "MaxDeliveryCount": 1,
               "RequiresDuplicateDetection": false,
               "RequiresSession": false
             }
@@ -44,7 +44,7 @@
                   "DeadLetteringOnMessageExpiration": false,
                   "DefaultMessageTimeToLive": "PT1H",
                   "LockDuration": "PT1M",
-                  "MaxDeliveryCount": 3,
+                  "MaxDeliveryCount": 1,
                   "RequiresSession": false
                 }
               },
@@ -54,7 +54,7 @@
                   "DeadLetteringOnMessageExpiration": false,
                   "DefaultMessageTimeToLive": "PT1H",
                   "LockDuration": "PT1M",
-                  "MaxDeliveryCount": 3,
+                  "MaxDeliveryCount": 1,
                   "RequiresSession": false
                 }
               }
