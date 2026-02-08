@@ -29,8 +29,12 @@
   }
 
 # Blob Storage
-  variable "container_name" {
-    description = "Nome do container"
+  variable "video_container_name" {
+    description = "Nome do container para armazenamento dos vídeos"
+    type        = string
+  }
+  variable "image_container_name" {
+    description = "Nome do container para armazenamento das imagens capturadas do vídeo"
     type        = string
   }
   variable "account_tier" {

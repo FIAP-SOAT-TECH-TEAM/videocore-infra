@@ -9,12 +9,6 @@
     }
   }
 
-
-variable "newrelic_otel_namespace" {
-  description = "Namespace Kubernetes onde o New Relic OpenTelemetry Collector será instalado."
-  type        = string
-}
-
 variable "newrelic_otel_collector_chart_name" {
   description = "Nome do Helm chart do New Relic OpenTelemetry Collector."
   type        = string

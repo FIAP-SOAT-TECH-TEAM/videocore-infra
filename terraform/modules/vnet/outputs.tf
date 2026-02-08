@@ -20,19 +20,9 @@
     value = azurerm_subnet.aks_node_subnet
   }
 
-  output "api_order_private_dns_fqdn" {
-    description = "FQDN do registro A do microsserviço de order na zona DNS privada"
-    value       = "${azurerm_private_dns_a_record.api_order_dns_a.name}.${azurerm_private_dns_a_record.api_order_dns_a.zone_name}"
-  }
-
-  output "api_payment_private_dns_fqdn" {
-    description = "FQDN do registro A do microsserviço de payment na zona DNS privada"
-    value       = "${azurerm_private_dns_a_record.api_payment_dns_a.name}.${azurerm_private_dns_a_record.api_payment_dns_a.zone_name}"
-  }
-
-  output "api_catalog_private_dns_fqdn" {
-    description = "FQDN do registro A do microsserviço de catalog na zona DNS privada"
-    value       = "${azurerm_private_dns_a_record.api_catalog_dns_a.name}.${azurerm_private_dns_a_record.api_catalog_dns_a.zone_name}"
+  output "api_reports_private_dns_fqdn" {
+    description = "FQDN do registro A do microsserviço de reports na zona DNS privada"
+    value       = "${azurerm_private_dns_a_record.api_reports_dns_a.name}.${azurerm_private_dns_a_record.api_reports_dns_a.zone_name}"
   }
 
 # Azure Functions

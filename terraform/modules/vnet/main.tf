@@ -88,24 +88,8 @@
 
 # Private DNS A Records
 
-  resource "azurerm_private_dns_a_record" "api_order_dns_a" {
-    name                = "order"
-    zone_name           = azurerm_private_dns_zone.private_dns.name
-    resource_group_name = var.resource_group_name
-    ttl                 = 300
-    records             = [local.aks_ingress_private_ip]
-  }
-
-  resource "azurerm_private_dns_a_record" "api_payment_dns_a" {
-    name                = "payment"
-    zone_name           = azurerm_private_dns_zone.private_dns.name
-    resource_group_name = var.resource_group_name
-    ttl                 = 300
-    records             = [local.aks_ingress_private_ip]
-  }
-
-  resource "azurerm_private_dns_a_record" "api_catalog_dns_a" {
-    name                = "catalog"
+  resource "azurerm_private_dns_a_record" "api_reports_dns_a" {
+    name                = "reports"
     zone_name           = azurerm_private_dns_zone.private_dns.name
     resource_group_name = var.resource_group_name
     ttl                 = 300

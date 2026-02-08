@@ -1,6 +1,11 @@
 output "storage_container_name" {
-  description = "Nome do container"
-  value       = azurerm_storage_container.images.name
+  description = "Nome do container para armazenamento dos vídeos"
+  value       = azurerm_storage_container.video.name
+}
+
+output "storage_container_name" {
+  description = "Nome do container para armazenamento das imagens capturadas do vídeo"
+  value       = azurerm_storage_container.image.name
 }
 
 output "storage_account_connection_string" {

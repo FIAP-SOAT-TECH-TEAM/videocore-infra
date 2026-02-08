@@ -1,5 +1,5 @@
 resource "helm_release" "newrelic_otel_collector" {
-  name             = "${var.dns_prefix}-nr-otel-collector"
+  name             = "videocore-otel"
   repository       = var.newrelic_otel_collector_repository
   chart            = var.newrelic_otel_collector_chart_name
   namespace        = var.newrelic_otel_collector_namespace

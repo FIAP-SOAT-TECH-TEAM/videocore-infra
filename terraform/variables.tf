@@ -235,10 +235,15 @@
   }
 
 # Blob Storage
-  variable "container_name" {
-    description = "Nome do container"
+  variable "video_container_name" {
+    description = "Nome do container para armazenamento dos vídeos"
     type        = string
-    default     = "images"
+    default     = "video"
+  }
+  variable "image_container_name" {
+    description = "Nome do container para armazenamento das imagens capturadas do vídeo"
+    type        = string
+    default     = "image"
   }
   variable "account_tier" {
     description = "Nivel da conta de armazenamento"
@@ -550,12 +555,6 @@
     description = "Repositório Helm oficial do New Relic que contém o chart nr-k8s-otel-collector."
     type        = string
     default     = "https://helm-charts.newrelic.com"
-  }
-
-  variable "newrelic_otel_collector_namespace" {
-    description = "Namespace Kubernetes onde o Helm chart do New Relic OpenTelemetry Collector será instalado."
-    type        = string
-    default     = "newrelic"
   }
 
   variable "newrelic_otel_collector_chart_version" {

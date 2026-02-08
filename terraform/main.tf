@@ -114,7 +114,8 @@ module "blob" {
   dns_prefix                = var.dns_prefix
   resource_group_name       = module.resource_group.name
   location                  = var.location
-  container_name            = var.container_name
+  video_container_name      = var.video_container_name
+  image_container_name      = var.image_container_name
   account_tier              = var.account_tier
   account_replication_type  = var.account_replication_type
   akv_id                    = module.akv.akv_id
@@ -171,10 +172,9 @@ module "helm" {
   source = "./modules/helm"
   
   dns_prefix                            = var.dns_prefix
-  newrelic_otel_namespace               = var.aks_namespaces[3]
   newrelic_otel_collector_chart_name    = var.newrelic_otel_collector_chart_name
   newrelic_otel_collector_repository    = var.newrelic_otel_collector_repository
-  newrelic_otel_collector_namespace     = var.newrelic_otel_collector_namespace
+  newrelic_otel_collector_namespace     = var.aks_namespaces[3]
   newrelic_otel_collector_chart_version = var.newrelic_otel_collector_chart_version
   newrelic_cluster_name                 = var.newrelic_cluster_name
   newrelic_license_key                  = var.newrelic_license_key

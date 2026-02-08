@@ -30,19 +30,9 @@
     value       = module.vnet.vnet_id
   }
 
-  output "api_order_private_dns_fqdn" {
-    description = "FQDN do registro A do microsserviço de order na zona DNS privada"
-    value       = module.vnet.api_order_private_dns_fqdn
-  }
-
-  output "api_payment_private_dns_fqdn" {
-    description = "FQDN do registro A do microsserviço de payment na zona DNS privada"
-    value       = module.vnet.api_payment_private_dns_fqdn
-  }
-
-  output "api_catalog_private_dns_fqdn" {
-    description = "FQDN do registro A do microsserviço de catalog na zona DNS privada"
-    value       = module.vnet.api_catalog_private_dns_fqdn
+  output "api_reports_private_dns_fqdn" {
+    description = "FQDN do registro A do microsserviço de reports na zona DNS privada"
+    value       = module.vnet.api_reports_private_dns_fqdn
   }
 
   output "vnet_aks_node_subnet_prefix" {
@@ -75,19 +65,24 @@
     value       = module.aks.aks_secret_identity_client_id 
   }
 
-  output "aks_order_namespace_name" {
-    description = "Nome do namespace Kubernetes para o microsserviço de order"
+  output "aks_worker_namespace_name" {
+    description = "Nome do namespace Kubernetes para o microsserviço de worker"
     value       = var.aks_namespaces[0]
   }
 
-  output "aks_payment_namespace_name" {
-    description = "Nome do namespace Kubernetes para o microsserviço de payment"
+  output "aks_reports_namespace_name" {
+    description = "Nome do namespace Kubernetes para o microsserviço de reports"
     value       = var.aks_namespaces[1]
   }
 
-  output "aks_catalog_namespace_name" {
-    description = "Nome do namespace Kubernetes para o microsserviço de catalog"
+  output "aks_notification_namespace_name" {
+    description = "Nome do namespace Kubernetes para o microsserviço de notification"
     value       = var.aks_namespaces[2]
+  }
+
+  output "aks_monitor_namespace_name" {
+    description = "Nome do namespace Kubernetes para serviços de observabilidade"
+    value       = var.aks_namespaces[3]
   }
 
 # ACR
