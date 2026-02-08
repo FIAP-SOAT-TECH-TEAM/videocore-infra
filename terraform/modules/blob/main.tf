@@ -1,4 +1,4 @@
-resource "azurerm_storage_account" "this" {
+resource "azurerm_storage_account" "stgaccount" {
   name                     = "${var.dns_prefix}stgaccount"
   resource_group_name      = var.resource_group_name
   location                 = var.location
@@ -8,19 +8,19 @@ resource "azurerm_storage_account" "this" {
 
 resource "azurerm_storage_container" "video" {
   name                  = var.video_container_name
-  storage_account_id    = azurerm_storage_account.this.id
+  storage_account_id    = azurerm_storage_account.stgaccount.id
   container_access_type = "blob"
 }
 
 resource "azurerm_storage_container" "image" {
   name                  = var.image_container_name
-  storage_account_id    = azurerm_storage_account.this.id
+  storage_account_id    = azurerm_storage_account.stgaccount.id
   container_access_type = "blob"
 }
 
 resource "azurerm_key_vault_secret" "az_storage_connection_string" {
   name         = "az-storage-connection-string"
-  value        = azurerm_storage_account.this.primary_connection_string
+  value        = azurerm_storage_account.stgaccount.primary_connection_string
   key_vault_id = var.akv_id
 
   tags = {

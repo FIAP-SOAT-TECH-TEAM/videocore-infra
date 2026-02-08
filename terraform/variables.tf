@@ -586,3 +586,24 @@
     type        = bool
     default     = true
   }
+
+# Event Grid
+  # https://learn.microsoft.com/en-us/azure/event-grid/event-schema-blob-storage?tabs=cloud-event-schema#example-events
+  variable "event_delivery_schema" {
+    description = "Esquema de entrega dos eventos do Event Grid"
+    type        = string
+    default     = "CloudEventSchemaV1_0"
+  }
+
+  variable "event_max_retry_attempts" {
+    description = "Número máximo de tentativas de reenvio para eventos que falharem na entrega"
+    type        = number
+    default     = 30
+
+  }
+
+  variable "event_ttl" {
+    description = "Tempo de vida dos eventos em minutos para eventos que falharem na entrega"
+    type        = number
+    default     = 1440
+  }

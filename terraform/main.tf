@@ -205,6 +205,21 @@ module "service_bus" {
   depends_on = [ module.resource_group, module.vnet ]
 }
 
+module "event_grid" {
+  source = "./modules/event_grid"
+
+  dns_prefix                = var.dns_prefix
+  resource_group_name       = module.resource_group.name
+  location                  = var.location
+  sb_process_queue_id       = module.service_bus.sb_process_queue_id
+  storage_account_id        = module.blob.storage_account_id
+  video_container_name      = module.blob.storage_video_container_name
+  event_delivery_schema     = var.event_delivery_schema
+  event_max_retry_attempts  = var.event_max_retry_attempts
+  event_ttl                 = var.event_ttl
+
+}
+
 module "apim" {
   source                           = "./modules/apim"
 
