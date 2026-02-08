@@ -21,6 +21,7 @@ jobs:
       TF_VAR_server_mail_host: ${{secrets.SERVER_MAIL_HOST}}
       TF_VAR_server_mail_port: ${{secrets.SERVER_MAIL_PORT}}
       TF_VAR_server_mail_from: ${{secrets.SERVER_MAIL_FROM}}
+      TF_VAR_newrelic_license_key: ${{secrets.NEWRELIC_LICENSE_KEY}}
 
     defaults:
       run:

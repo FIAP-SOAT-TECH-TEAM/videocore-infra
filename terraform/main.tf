@@ -1,11 +1,13 @@
 module "resource_group" {
   source              = "./modules/resource_group"
+  
   resource_group_name = var.resource_group_name
   location            = var.location
 }
 
 module "vnet" {
   source                          = "./modules/vnet"
+
   dns_prefix                      = var.dns_prefix
   resource_group_name             = module.resource_group.name
   location                        = var.location
@@ -21,6 +23,7 @@ module "vnet" {
 
 module "appgw" {
   source                    = "./modules/appgw"
+
   dns_prefix                = var.dns_prefix
   resource_group_name       = module.resource_group.name
   location                  = var.location
@@ -36,6 +39,7 @@ module "appgw" {
 
 module "akv" {
   source = "./modules/azure_key_vault"
+
   dns_prefix                      = var.dns_prefix
   resource_group_name             = module.resource_group.name
   location                        = var.location
@@ -56,6 +60,7 @@ module "akv" {
 
 module "app_insights" {
   source              = "./modules/app-insights"
+
   dns_prefix          = var.dns_prefix
   resource_group_name = module.resource_group.name
   location            = var.location
@@ -75,6 +80,7 @@ module "cognito" {
 
 module "azfunc" {
   source                              = "./modules/azure_function"
+
   dns_prefix                          = var.dns_prefix
   location                            = var.location
   az_premium_plan_auto_scale_enabled  = var.az_premium_plan_auto_scale_enabled
@@ -104,6 +110,7 @@ module "azfunc" {
 
 module "blob" {
   source                    = "./modules/blob"
+  
   dns_prefix                = var.dns_prefix
   resource_group_name       = module.resource_group.name
   location                  = var.location
@@ -117,6 +124,7 @@ module "blob" {
 
 module "acr" {
   source                      = "./modules/acr"
+
   dns_prefix                  = var.dns_prefix
   resource_group_name         = module.resource_group.name
   location                    = var.location
@@ -129,6 +137,7 @@ module "acr" {
 
 module "aks" {
   source                      = "./modules/aks"
+
   dns_prefix                  = var.dns_prefix
   resource_group_name         = module.resource_group.name
   aks_network_plugin          = var.aks_network_plugin
@@ -158,8 +167,27 @@ module "aks" {
   depends_on = [ module.resource_group, module.vnet, module.acr, module.appgw ]
 }
 
+module "helm" {
+  source = "./modules/helm"
+  
+  dns_prefix                            = var.dns_prefix
+  newrelic_otel_namespace               = var.aks_namespaces[3]
+  newrelic_otel_collector_chart_name    = var.newrelic_otel_collector_chart_name
+  newrelic_otel_collector_repository    = var.newrelic_otel_collector_repository
+  newrelic_otel_collector_namespace     = var.newrelic_otel_collector_namespace
+  newrelic_otel_collector_chart_version = var.newrelic_otel_collector_chart_version
+  newrelic_cluster_name                 = var.newrelic_cluster_name
+  newrelic_license_key                  = var.newrelic_license_key
+  newrelic_low_data_mode                = var.newrelic_low_data_mode
+  newrelic_important_metrics_only       = var.newrelic_important_metrics_only
+
+  depends_on = [ module.aks ]
+  
+}
+
 module "service_bus" {
   source                  = "./modules/azure_service_bus"
+
   dns_prefix              = var.dns_prefix
   resource_group_name     = module.resource_group.name
   location                = var.location
@@ -179,6 +207,7 @@ module "service_bus" {
 
 module "apim" {
   source                           = "./modules/apim"
+
   dns_prefix                       = var.dns_prefix
   resource_group_name              = module.resource_group.name
   location                         = var.location

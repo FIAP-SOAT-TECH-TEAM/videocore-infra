@@ -202,9 +202,9 @@
     description = "Lista de namespaces Kubernetes a serem criados no AKS"
     type        = list(string)
     default = [
-      "order",
-      "payment",
-      "catalog",
+      "worker",
+      "reports",
+      "notification",
       "monitor"
     ]
   }
@@ -536,4 +536,54 @@
         }
       }
     }
+  }
+
+# Helm
+
+  variable "newrelic_otel_collector_chart_name" {
+    description = "Nome do Helm chart do New Relic OpenTelemetry Collector."
+    type        = string
+    default     = "nr-k8s-otel-collector"
+  }
+
+  variable "newrelic_otel_collector_repository" {
+    description = "Repositório Helm oficial do New Relic que contém o chart nr-k8s-otel-collector."
+    type        = string
+    default     = "https://helm-charts.newrelic.com"
+  }
+
+  variable "newrelic_otel_collector_namespace" {
+    description = "Namespace Kubernetes onde o Helm chart do New Relic OpenTelemetry Collector será instalado."
+    type        = string
+    default     = "newrelic"
+  }
+
+  variable "newrelic_otel_collector_chart_version" {
+    description = "Versão do Helm chart nr-k8s-otel-collector a ser utilizada."
+    type        = string
+    default     = "0.10.2"
+  }
+
+  variable "newrelic_cluster_name" {
+    description = "Nome do cluster Kubernetes que será reportado ao New Relic."
+    type        = string
+    default     = "Video Core AKS Cluster"
+  }
+
+  variable "newrelic_license_key" {
+    description = "License key de ingestão do New Relic utilizada pelo OpenTelemetry Collector."
+    type        = string
+    sensitive   = true
+  }
+
+  variable "newrelic_low_data_mode" {
+    description = "Habilita o modo de baixo volume de dados (low data mode) para reduzir custos de ingestão."
+    type        = bool
+    default     = true
+  }
+
+  variable "newrelic_important_metrics_only" {
+    description = "Coleta apenas métricas consideradas importantes pelo New Relic."
+    type        = bool
+    default     = true
   }

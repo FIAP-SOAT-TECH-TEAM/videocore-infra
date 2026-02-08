@@ -90,11 +90,6 @@
     value       = var.aks_namespaces[2]
   }
 
-  output "aks_monitor_namespace_name" {
-    description = "Nome do namespace Kubernetes para os serviços de observabilidade"
-    value       = var.aks_namespaces[3]
-  }
-
 # ACR
 
   output "acr_name" {
