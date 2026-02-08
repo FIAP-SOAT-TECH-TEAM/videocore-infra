@@ -10,18 +10,18 @@ resource "helm_release" "newrelic_otel_collector" {
     value = var.newrelic_cluster_name
   }
 
-  set {
+  set_sensitive {
     name  = "licenseKey"
     value = var.newrelic_license_key
   }
 
   set {
     name  = "lowDataMode"
-    value = var.newrelic_low_data_mode
+    value = tostring(var.newrelic_low_data_mode)
   }
 
   set {
     name  = "importantMetricsOnly"
-    value = var.newrelic_important_metrics_only
+    value = tostring(var.newrelic_important_metrics_only)
   }
 }
