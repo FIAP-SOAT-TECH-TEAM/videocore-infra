@@ -1,31 +1,6 @@
 resource "aws_cognito_user_pool" "cognito_user_pool" {
   name = "${var.dns_prefix}_user_pool"
 
-  # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool#schema
-  schema {
-    name               = "cpf"
-    required           = false
-    mutable            = false
-    attribute_data_type = "String"
-
-    string_attribute_constraints {
-      min_length = 11
-      max_length = 11
-    }
-  }
-
-  schema {
-    name               = "role"
-    required           = false # https://github.com/hashicorp/terraform-provider-aws/issues/18430
-    mutable            = true
-    attribute_data_type = "String"
-
-    string_attribute_constraints {
-      min_length = 3
-      max_length = 20
-    }
-  }
-
   password_policy {
     minimum_length    = 8
     require_lowercase = true
@@ -75,30 +50,12 @@ resource "aws_cognito_user_pool_client" "foodcoreapp_cognito_client" {
     "email",
     "email_verified",
     "name",
-    "preferred_username",
-    "custom:cpf",
-    "custom:role"
+    "preferred_username"
   ]
 
   # URLs para onde o usuário será redirecionado após o login
   callback_urls = var.callback_urls
 
-}
-
-resource "aws_cognito_user" "guest_customer" {
-  user_pool_id = aws_cognito_user_pool.cognito_user_pool.id
-  username     = "guest_customer"
-
-  attributes = {
-    email = local.guest_user_email
-    name  = "Guest User"
-    role  = "CUSTOMER"
-  }
-
-  password = var.default_customer_password
-
-  force_alias_creation = false
-  message_action       = "SUPPRESS"
 }
 
 resource "azurerm_key_vault_secret" "aws_cognito_user_pool_id" {

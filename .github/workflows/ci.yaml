@@ -60,7 +60,6 @@ jobs:
           TF_VAR_subscription_id: ${{secrets.AZURE_SUBSCRIPTION_ID}}
           TF_VAR_location: ${{secrets.AZURE_REGION}}
           TF_VAR_aws_location: ${{secrets.AWS_REGION}}
-          TF_VAR_default_customer_password: ${{secrets.DEFAULT_CUSTOMER_PASSWORD}}
           TF_VAR_aws_credentials: ${{secrets.AWS_CREDENTIALS}}
           TF_VAR_server_mail_username: ${{secrets.SERVER_MAIL_USERNAME}}
           TF_VAR_server_mail_password: ${{secrets.SERVER_MAIL_PASSWORD}}

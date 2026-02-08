@@ -40,11 +40,6 @@
     type        = string
     description = "Cognito Client ID"
   }
-  variable "default_customer_password" {
-    type        = string
-    description = "Senha padrão para novos clientes"
-    sensitive   = true
-  }
 
 # Application Insights
   variable "app_insights_instrumentation_key" {
@@ -100,11 +95,6 @@ variable "azfunc_private_ip" {
 variable "azfunc_enable_always_on" {
   description = "Habilita o recurso Always On na Function App"
   type        = bool
-}
-
-variable "guest_user_email" {
-  type        = string
-  description = "Email do usuário convidado (guest) que será criado no Cognito"
 }
 
 variable "az_premium_plan_auto_scale_enabled" {

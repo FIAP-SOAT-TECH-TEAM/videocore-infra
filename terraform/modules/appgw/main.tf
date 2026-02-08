@@ -32,11 +32,6 @@ resource "azurerm_application_gateway" "aks_appgw" {
      private_ip_address_allocation  = "Static"
    }
 
-   frontend_ip_configuration {
-     name                 = local.frontend_public_ip_configuration_name
-     public_ip_address_id = var.aks_appgw_public_ip_id
-   }
-
    backend_address_pool {
      name = local.backend_address_pool_name
    }

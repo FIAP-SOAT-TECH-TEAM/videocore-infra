@@ -4,17 +4,6 @@ module "resource_group" {
   location            = var.location
 }
 
-module "public_ip" {
-  source                        = "./modules/public_ip"
-  dns_prefix                    = var.dns_prefix
-  resource_group_name           = module.resource_group.name
-  location                      = var.location
-  aks_ingress_allocation_method = var.aks_ingress_allocation_method
-  aks_ingress_sku               = var.aks_ingress_sku
-  aks_ingress_public_ip_zones   = var.aks_ingress_public_ip_zones
-  depends_on          = [ module.resource_group ]
-}
-
 module "vnet" {
   source                          = "./modules/vnet"
   dns_prefix                      = var.dns_prefix
@@ -26,9 +15,8 @@ module "vnet" {
   vnet_azfunc_pe_subnet_prefix    = var.vnet_azfunc_pe_subnet_prefix
   vnet_sb_subnet_prefix           = var.vnet_sb_subnet_prefix
   vnet_appgw_subnet_prefix        = var.vnet_appgw_subnet_prefix
-  aks_ingress_public_ip           = module.public_ip.aks_ingress_public_ip.ip_address
 
-  depends_on = [ module.resource_group, module.public_ip ]
+  depends_on = [ module.resource_group ]
 }
 
 module "appgw" {
@@ -36,16 +24,14 @@ module "appgw" {
   dns_prefix                = var.dns_prefix
   resource_group_name       = module.resource_group.name
   location                  = var.location
-  # Deve ser as mesmas do IP público escolhido para o Frontend Configuration púbico do App Gateway
-  aks_app_gateway_zones     = var.aks_ingress_public_ip_zones
+  aks_app_gateway_zones     = var.aks_appgw_zones
   aks_app_gateway_tier      = var.aks_app_gateway_tier
   aks_appgw_min_capacity    = var.aks_appgw_min_capacity
   aks_appgw_max_capacity    = var.aks_appgw_max_capacity 
   appgw_subnet_id           = module.vnet.appgw_subnet.id
   aks_appgw_private_ip      = module.vnet.aks_ingress_private_ip
-  aks_appgw_public_ip_id    = module.public_ip.aks_ingress_public_ip.id
 
-  depends_on = [ module.resource_group, module.vnet, module.public_ip ]
+  depends_on = [ module.resource_group, module.vnet ]
 }
 
 module "akv" {
@@ -82,7 +68,6 @@ module "cognito" {
   
   aws_location              = var.aws_location
   dns_prefix                = var.dns_prefix
-  default_customer_password = var.default_customer_password
   callback_urls             = var.callback_urls
   akv_id                    = module.akv.akv_id
   
@@ -113,8 +98,6 @@ module "azfunc" {
   instance_memory_in_mb               = var.azfunc_instance_memory_in_mb
   cognito_user_pool_id                = module.cognito.cognito_user_pool_id
   cognito_client_id                   = module.cognito.cognito_user_pool_client_id
-  default_customer_password           = var.default_customer_password
-  guest_user_email                    = module.cognito.guest_user_email
 
   depends_on = [ module.resource_group, module.vnet, module.cognito, module.app_insights ]
 }
@@ -171,7 +154,7 @@ module "aks" {
   appgw_id                    = module.appgw.aks_appgw_id
   akv_id                      = module.akv.akv_id
 
-  depends_on = [ module.resource_group, module.vnet, module.acr, module.public_ip, module.appgw ]
+  depends_on = [ module.resource_group, module.vnet, module.acr, module.appgw ]
 }
 
 module "service_bus" {

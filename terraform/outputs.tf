@@ -18,12 +18,6 @@
     value      = data.azurerm_client_config.current.tenant_id
   }
 
-# Public IP
-  
-  output "aks_ingress_public_ip_fqdn" {
-    value = module.public_ip.aks_ingress_public_ip_fqdn
-  }
-
 # VNET
 
   output "vnet_name" {

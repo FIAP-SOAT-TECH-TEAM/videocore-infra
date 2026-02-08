@@ -21,16 +21,6 @@
   }
 
 # COGNITO
-  variable "default_customer_password" {
-    type        = string
-    description = "Senha padrão para o usuário cliente."
-    
-    validation {
-      condition     = length(var.default_customer_password) >= 8
-      error_message = "A 'default_customer_password' deve ter pelo menos 8 caracteres."
-    }
-  }
-
   variable "callback_urls" {
     type        = list(string)
     description = "Lista de URLs de callback para o cliente do User Pool."

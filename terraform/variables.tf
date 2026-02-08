@@ -5,7 +5,7 @@
   }
   variable "resource_group_name" {
     type    = string
-    default = "tc4"
+    default = "hackaton"
     description = "Nome do resource group"
   }
 
@@ -27,30 +27,12 @@
   variable "dns_prefix" {
     type = string
     description = "Prefixo DNS. Deve ser único globalmente."
-    default = "foodcore"
+    default = "videocore"
     
     validation {
       condition     = length(var.dns_prefix) >= 1 && length(var.dns_prefix) <= 54
       error_message = "O 'dns_prefix' deve ter entre 1 e 54 caracteres."
     }
-  }
-
-# Public IP
-  variable "aks_ingress_allocation_method" {
-    type    = string
-    default = "Static"
-    description = "Método de alocação do IP público"
-  }
-  variable "aks_ingress_sku" {
-    type    = string
-    default = "Standard"
-    description = "SKU do IP público"
-  }
-  # https://github.com/hashicorp/terraform-provider-azurerm/issues/16470
-  variable "aks_ingress_public_ip_zones" {
-    description = "Zonas de disponibilidade para o IP público do Ingress do AKS"
-    type        = list(string)
-    default     = [ "1", "2", "3" ]
   }
 
 # VNET
@@ -240,6 +222,12 @@
     default = 4
   }
 
+  variable "aks_appgw_zones" {
+    description = "Zonas de disponibilidade para o Application Gateway"
+    type        = list(string)
+    default     = [ "1", "2", "3" ]
+  }
+
 # Blob Storage
   variable "container_name" {
     description = "Nome do container"
@@ -285,7 +273,7 @@
   variable "apim_publisher_name" {
     description = "Nome do publicador do API Management"
     type        = string
-    default     = "FoodCore"
+    default     = "VideoCore"
   }
 
   variable "apim_publisher_email" {
@@ -315,25 +303,25 @@
   variable "apim_product_id" {
     description = "ID do produto do API Management"
     type        = string
-    default     = "foodcoreapi_start"
+    default     = "videocoreapi_start"
   }
 
   variable "apim_product_display_name" {
     description = "Nome exibido do produto do API Management"
     type        = string
-    default     = "FoodCore API Start"
+    default     = "VideoCore API Start"
   }
 
   variable "apim_product_description" {
     description = "Descrição do produto do API Management"
     type        = string
-    default     = "Produto de API para o FoodCore"
+    default     = "Produto de API para o VideoCore"
   }
 
   variable "apim_subscription_display_name" {
     description = "Nome exibido da assinatura do API Management"
     type        = string
-    default     = "FoodCore API Subscription"
+    default     = "VideoCore API Subscription"
   }
 
   variable "apim_subscription_state" {
@@ -411,16 +399,6 @@
 
 # Cognito
 
-  variable "default_customer_password" {
-    type        = string
-    description = "Senha padrão para o usuário cliente."
-    
-    validation {
-      condition     = length(var.default_customer_password) >= 8
-      error_message = "A 'default_customer_password' deve ter pelo menos 8 caracteres."
-    }
-  }
-
   variable "callback_urls" {
     type        = list(string)
     description = "Lista de URLs de callback para o cliente do User Pool."
@@ -469,52 +447,22 @@
     }))
 
     default = {
-      "order.ready.queue" = {
+      "process.queue" = {
         DeadLetteringOnMessageExpiration    = false
         DefaultMessageTimeToLive            = "PT1H"
         DuplicateDetectionHistoryTimeWindow = "PT20S"
         LockDuration                        = "PT1M"
-        MaxDeliveryCount                    = 3
+        MaxDeliveryCount                    = 1
         RequiresDuplicateDetection          = false
         RequiresSession                     = false
         PartitioningEnabled                 = true
       }
-      "payment.approved.queue" = {
+      "process.error.queue" = {
         DeadLetteringOnMessageExpiration    = false
         DefaultMessageTimeToLive            = "PT1H"
         DuplicateDetectionHistoryTimeWindow = "PT20S"
         LockDuration                        = "PT1M"
-        MaxDeliveryCount                    = 3
-        RequiresDuplicateDetection          = false
-        RequiresSession                     = false
-        PartitioningEnabled                 = true
-      }
-      "payment.expired.queue" = {
-        DeadLetteringOnMessageExpiration    = false
-        DefaultMessageTimeToLive            = "PT1H"
-        DuplicateDetectionHistoryTimeWindow = "PT20S"
-        LockDuration                        = "PT1M"
-        MaxDeliveryCount                    = 3
-        RequiresDuplicateDetection          = false
-        RequiresSession                     = false
-        PartitioningEnabled                 = true
-      }
-      "stock.reversal.queue" = {
-        DeadLetteringOnMessageExpiration    = false
-        DefaultMessageTimeToLive            = "PT1H"
-        DuplicateDetectionHistoryTimeWindow = "PT20S"
-        LockDuration                        = "PT1M"
-        MaxDeliveryCount                    = 3
-        RequiresDuplicateDetection          = false
-        RequiresSession                     = false
-        PartitioningEnabled                 = true
-      }
-      "stock.debit.queue" = {
-        DeadLetteringOnMessageExpiration    = false
-        DefaultMessageTimeToLive            = "PT1H"
-        DuplicateDetectionHistoryTimeWindow = "PT20S"
-        LockDuration                        = "PT1M"
-        MaxDeliveryCount                    = 3
+        MaxDeliveryCount                    = 1
         RequiresDuplicateDetection          = false
         RequiresSession                     = false
         PartitioningEnabled                 = true
@@ -535,16 +483,7 @@
     }))
 
     default = {
-      "order.created.topic" = {
-        Properties = {
-          DefaultMessageTimeToLive            = "PT1H"
-          DuplicateDetectionHistoryTimeWindow = "PT20S"
-          RequiresDuplicateDetection          = false
-          PartitioningEnabled                 = true
-        }
-      }
-
-      "order.canceled.topic" = {
+      "process.status.topic" = {
         Properties = {
           DefaultMessageTimeToLive            = "PT1H"
           DuplicateDetectionHistoryTimeWindow = "PT20S"
@@ -569,35 +508,24 @@
     }))
 
     default = {
-      "catalog.order.created.topic.subscription" = {
-        topic_name = "order.created.topic"
+      "reports.process.status.topic.subscription" = {
+        topic_name = "process.status.topic"
         properties = {
           DeadLetteringOnMessageExpiration = false
           DefaultMessageTimeToLive         = "PT1H"
           LockDuration                     = "PT1M"
-          MaxDeliveryCount                 = 3
+          MaxDeliveryCount                 = 1
           RequiresSession                  = false
         }
       }
 
-      "payment.order.canceled.topic.subscription" = {
-        topic_name = "order.canceled.topic"
+      "notification.process.status.topic.subscription" = {
+        topic_name = "process.status.topic"
         properties = {
           DeadLetteringOnMessageExpiration = false
           DefaultMessageTimeToLive         = "PT1H"
           LockDuration                     = "PT1M"
-          MaxDeliveryCount                 = 3
-          RequiresSession                  = false
-        }
-      }
-
-      "catalog.order.canceled.topic.subscription" = {
-        topic_name = "order.canceled.topic"
-        properties = {
-          DeadLetteringOnMessageExpiration = false
-          DefaultMessageTimeToLive         = "PT1H"
-          LockDuration                     = "PT1M"
-          MaxDeliveryCount                 = 3
+          MaxDeliveryCount                 = 1
           RequiresSession                  = false
         }
       }
