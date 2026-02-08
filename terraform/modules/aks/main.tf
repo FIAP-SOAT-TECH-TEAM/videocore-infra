@@ -4,6 +4,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
   resource_group_name = var.resource_group_name
   dns_prefix          = var.dns_prefix
   kubernetes_version  = var.kubernetes_version
+
+  workload_autoscaler_profile {
+    keda_enabled = var.aks_enable_keda
+  }
   
   default_node_pool {
     name                        = var.node_pool_name

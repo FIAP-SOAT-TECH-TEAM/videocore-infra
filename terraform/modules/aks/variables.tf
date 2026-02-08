@@ -22,6 +22,11 @@
     type = string
   }
 
+variable "aks_enable_keda" {
+  type        = bool
+  description = "Habilita ou desabilita o KEDA no AKS"
+}
+
 variable "aks_auto_scaling_enabled" {
   type        = bool
   description = "Habilita ou desabilita o auto scaling no pool de nós do AKS"

@@ -119,6 +119,12 @@
   }
 
 # AKS
+
+  variable "aks_enable_keda" {
+    type        = bool
+    description = "Habilita ou desabilita o KEDA no AKS"
+    default     = true
+  }
   variable "aks_network_plugin" {
     type        = string
     description = "Plugin de rede para o AKS" 

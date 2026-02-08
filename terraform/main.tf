@@ -153,6 +153,7 @@ module "aks" {
   vnet_id                     = module.vnet.vnet_id
   appgw_id                    = module.appgw.aks_appgw_id
   akv_id                      = module.akv.akv_id
+  aks_enable_keda             = var.aks_enable_keda
 
   depends_on = [ module.resource_group, module.vnet, module.acr, module.appgw ]
 }
