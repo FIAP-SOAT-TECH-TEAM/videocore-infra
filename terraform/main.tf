@@ -90,7 +90,8 @@ module "cognito" {
   dns_prefix                = var.dns_prefix
   callback_urls             = var.callback_urls
   akv_id                    = module.akv.akv_id
-  
+
+  depends_on = [ module.akv ]
 }
 
 module "azfunc" {
@@ -135,7 +136,7 @@ module "blob" {
   account_replication_type  = var.account_replication_type
   akv_id                    = module.akv.akv_id
 
-  depends_on = [ module.resource_group ]
+  depends_on = [ module.resource_group, module.akv ]
 }
 
 module "acr" {
@@ -180,7 +181,7 @@ module "aks" {
   akv_id                      = module.akv.akv_id
   aks_enable_keda             = var.aks_enable_keda
 
-  depends_on = [ module.resource_group, module.vnet, module.acr, module.appgw ]
+  depends_on = [ module.resource_group, module.vnet, module.acr, module.appgw, module.akv ]
 }
 
 module "helm" {
@@ -217,7 +218,7 @@ module "service_bus" {
   sb_subscriptions        = var.sb_subscriptions
   akv_id                  = module.akv.akv_id
 
-  depends_on = [ module.resource_group, module.vnet ]
+  depends_on = [ module.resource_group, module.vnet, module.akv ]
 }
 
 module "event_grid" {
