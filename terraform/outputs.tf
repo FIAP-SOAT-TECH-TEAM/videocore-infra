@@ -85,17 +85,17 @@
     value       = var.aks_namespaces[3]
   }
 
-# # ACR
+# ACR
 
-#   output "acr_name" {
-#     description = "Nome do Azure Container Registry"
-#     value       = module.acr.acr_name
-#   }
+  output "acr_name" {
+    description = "Nome do Azure Container Registry"
+    value       = module.acr.acr_name
+  }
 
-#   output "acr_resource_group" {
-#     description = "Resource Group do ACR"
-#     value       = module.acr.acr_resource_group
-#   }
+  output "acr_resource_group" {
+    description = "Resource Group do ACR"
+    value       = module.acr.acr_resource_group
+  }
 
 # # APIM
 

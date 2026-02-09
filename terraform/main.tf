@@ -123,18 +123,18 @@ module "blob" {
   depends_on = [ module.resource_group ]
 }
 
-# module "acr" {
-#   source                      = "./modules/acr"
+module "acr" {
+  source                      = "./modules/acr"
 
-#   dns_prefix                  = var.dns_prefix
-#   resource_group_name         = module.resource_group.name
-#   location                    = var.location
-#   acr_sku                     = var.acr_sku
-#   acr_admin_enabled           = var.acr_admin_enabled
-#   acr_zone_redundancy_enabled = var.acr_zone_redundancy_enabled
+  dns_prefix                  = var.dns_prefix
+  resource_group_name         = module.resource_group.name
+  location                    = var.location
+  acr_sku                     = var.acr_sku
+  acr_admin_enabled           = var.acr_admin_enabled
+  acr_zone_redundancy_enabled = var.acr_zone_redundancy_enabled
 
-#   depends_on = [ module.resource_group ]
-# }
+  depends_on = [ module.resource_group ]
+}
 
 module "aks" {
   source                      = "./modules/aks"
