@@ -41,6 +41,7 @@
   }
 
 # AKV
+  
   output "akv_id" {
     description = "ID do Azure Key Vault"
     value       = module.akv.akv_id
@@ -51,6 +52,7 @@
   }
 
 # AKS
+  
   output "aks_name" {
     value = module.aks.aks_name
   }
@@ -97,64 +99,64 @@
     value       = module.acr.acr_resource_group
   }
 
-# # APIM
+# APIM
 
-#   output "apim_gateway_url" {
-#     description = "URL do gateway do API Management"
-#     value       = module.apim.apim_gateway_url
-#   }
+  output "apim_gateway_url" {
+    description = "URL do gateway do API Management"
+    value       = module.apim.apim_gateway_url
+  }
 
-#   output "apim_resource_group" {
-#     description = "Resource Group do API Management"
-#     value       = module.apim.apim_resource_group
-#   }
+  output "apim_resource_group" {
+    description = "Resource Group do API Management"
+    value       = module.apim.apim_resource_group
+  }
 
-#   output "apim_name" {
-#     description = "Nome do API Management"
-#     value       = module.apim.apim_name
-#   }
+  output "apim_name" {
+    description = "Nome do API Management"
+    value       = module.apim.apim_name
+  }
 
-#   output "apim_videocore_start_productid" {
-#     description = "ID do produto do API Management"
-#     value       = module.apim.apim_videocore_start_productid
-#   }
+  output "apim_videocore_start_productid" {
+    description = "ID do produto do API Management"
+    value       = module.apim.apim_videocore_start_productid
+  }
 
-#   output "apim_videocore_start_subscriptionid" {
-#     description = "ID da assinatura do API Management"
-#     value       = module.apim.apim_videocore_start_subscriptionid
-#     sensitive   = true
-#   }
+  output "apim_videocore_start_subscriptionid" {
+    description = "ID da assinatura do API Management"
+    value       = module.apim.apim_videocore_start_subscriptionid
+    sensitive   = true
+  }
 
-#   output "apim_videocore_start_subscription_key" {
-#     description = "Chave de subscrição do API Management"
-#     value       = module.apim.apim_videocore_start_subscription_key
-#     sensitive   = true
-#   }
+  output "apim_videocore_start_subscription_key" {
+    description = "Chave de subscrição do API Management"
+    value       = module.apim.apim_videocore_start_subscription_key
+    sensitive   = true
+  }
 
-# # Cognito
+# Cognito
 
-#   output "cognito_code_login_url" {
-#     description = "URL de login do Cognito User Pool (usando o fluxo de authorization code)"
-#     value       = module.cognito.cognito_code_login_url
-#   }
+  output "cognito_code_login_url" {
+    description = "URL de login do Cognito User Pool (usando o fluxo de authorization code)"
+    value       = module.cognito.cognito_code_login_url
+  }
 
-#   output "cognito_code_get_token_url" {
-#     description = "URL para obtenção do token do Cognito User Pool (usando o fluxo de authorization code)"
-#     value       = module.cognito.cognito_code_get_token_url
-#   }
+  output "cognito_code_get_token_url" {
+    description = "URL para obtenção do token do Cognito User Pool (usando o fluxo de authorization code)"
+    value       = module.cognito.cognito_code_get_token_url
+  }
 
-#   output "cognito_implicit_login_url" {
-#     description = "URL de login do Cognito User Pool (usando o fluxo implícito)"
-#     value       = module.cognito.cognito_implicit_login_url
-#   }
+  output "cognito_implicit_login_url" {
+    description = "URL de login do Cognito User Pool (usando o fluxo implícito)"
+    value       = module.cognito.cognito_implicit_login_url
+  }
 
-# # Azure Function
-#   output "azfunc_name" {
-#     description = "O nome da Azure Function App"
-#     value       = module.azfunc.azfunc_name
-#   }
+# Azure Function
+  output "azfunc_name" {
+    description = "O nome da Azure Function App"
+    value       = module.azfunc.azfunc_name
+  }
 
-#   output "azfunc_private_dns_fqdn" {
-#     description = "FQDN do registro A do Azure Functions na zona DNS privada"
-#     value       = module.vnet.azfunc_private_dns_fqdn
-#   }
+  output "azfunc_private_dns_fqdn" {
+    description = "FQDN do registro A do Azure Functions na zona DNS privada"
+    value       = module.vnet.azfunc_private_dns_fqdn
+  }
