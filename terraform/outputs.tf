@@ -114,20 +114,20 @@
 #     value       = module.apim.apim_name
 #   }
 
-#   output "apim_foodcore_start_productid" {
+#   output "apim_videocore_start_productid" {
 #     description = "ID do produto do API Management"
-#     value       = module.apim.apim_foodcore_start_productid
+#     value       = module.apim.apim_videocore_start_productid
 #   }
 
-#   output "apim_foodcore_start_subscriptionid" {
+#   output "apim_videocore_start_subscriptionid" {
 #     description = "ID da assinatura do API Management"
-#     value       = module.apim.apim_foodcore_start_subscriptionid
+#     value       = module.apim.apim_videocore_start_subscriptionid
 #     sensitive   = true
 #   }
 
-#   output "apim_foodcore_start_subscription_key" {
+#   output "apim_videocore_start_subscription_key" {
 #     description = "Chave de subscrição do API Management"
-#     value       = module.apim.apim_foodcore_start_subscription_key
+#     value       = module.apim.apim_videocore_start_subscription_key
 #     sensitive   = true
 #   }
 

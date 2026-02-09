@@ -52,6 +52,10 @@ variable "aks_appgw_private_ip" {
   type        = string
   description = "O endereço IP privado atribuído ao Frontend do Application Gateway para AKS."
 }
+variable "aks_appgw_public_ip_id" {
+  type        = string
+  description = "O ID do endereço IP público atribuído ao Frontend do Application Gateway para AKS."
+}
 
 variable "aks_appgw_min_capacity" {
   type        = number

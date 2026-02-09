@@ -52,3 +52,7 @@
     description = "Prefixo de endereço da subrede do Application Gateway"
     type        = list(string)
   }
+  variable "aks_ingress_public_ip" {
+    description = "Endereço IP público para uso do Frontend Configuration do Application Gateway do AKS"
+    type = string
+  }

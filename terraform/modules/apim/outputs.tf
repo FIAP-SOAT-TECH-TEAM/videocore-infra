@@ -13,18 +13,18 @@ output "apim_name" {
   value       = azurerm_api_management.apim.name
 }
 
-output "apim_foodcore_start_productid" {
+output "apim_videocore_start_productid" {
   description = "ID do produto do API Management"
-  value       = azurerm_api_management_product.foodcoreapi_start_product.product_id
+  value       = azurerm_api_management_product.videocoreapi_start_product.product_id
 }
 
-output "apim_foodcore_start_subscriptionid" {
+output "apim_videocore_start_subscriptionid" {
   description = "ID da assinatura do API Management"
-  value       = azurerm_api_management_subscription.foodcoreapi_start_subscription.id
+  value       = azurerm_api_management_subscription.videocoreapi_start_subscription.id
 }
 
-output "apim_foodcore_start_subscription_key" {
+output "apim_videocore_start_subscription_key" {
   description = "Chave de subscrição do API Management"
-  value       = azurerm_api_management_subscription.foodcoreapi_start_subscription.primary_key
+  value       = azurerm_api_management_subscription.videocoreapi_start_subscription.primary_key
   sensitive   = true
 }
