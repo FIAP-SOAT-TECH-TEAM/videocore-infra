@@ -73,15 +73,15 @@ module "akv" {
   depends_on = [ module.resource_group ]
 }
 
-module "app_insights" {
-  source              = "./modules/app-insights"
+# module "app_insights" {
+#   source              = "./modules/app-insights"
 
-  dns_prefix          = var.dns_prefix
-  resource_group_name = module.resource_group.name
-  location            = var.location
+#   dns_prefix          = var.dns_prefix
+#   resource_group_name = module.resource_group.name
+#   location            = var.location
   
-  depends_on = [ module.resource_group ]
-}
+#   depends_on = [ module.resource_group ]
+# }
 
 # module "cognito" {
 #   source                    = "./modules/cognito"
@@ -123,20 +123,20 @@ module "app_insights" {
 #   depends_on = [ module.resource_group, module.vnet, module.cognito, module.app_insights ]
 # }
 
-module "blob" {
-  source                    = "./modules/blob"
+# module "blob" {
+#   source                    = "./modules/blob"
   
-  dns_prefix                = var.dns_prefix
-  resource_group_name       = module.resource_group.name
-  location                  = var.location
-  video_container_name      = var.video_container_name
-  image_container_name      = var.image_container_name
-  account_tier              = var.account_tier
-  account_replication_type  = var.account_replication_type
-  akv_id                    = module.akv.akv_id
+#   dns_prefix                = var.dns_prefix
+#   resource_group_name       = module.resource_group.name
+#   location                  = var.location
+#   video_container_name      = var.video_container_name
+#   image_container_name      = var.image_container_name
+#   account_tier              = var.account_tier
+#   account_replication_type  = var.account_replication_type
+#   akv_id                    = module.akv.akv_id
 
-  depends_on = [ module.resource_group ]
-}
+#   depends_on = [ module.resource_group ]
+# }
 
 module "acr" {
   source                      = "./modules/acr"
@@ -183,59 +183,59 @@ module "aks" {
   depends_on = [ module.resource_group, module.vnet, module.acr, module.appgw ]
 }
 
-module "helm" {
-  source = "./modules/helm"
+# module "helm" {
+#   source = "./modules/helm"
   
-  dns_prefix                            = var.dns_prefix
-  newrelic_otel_collector_chart_name    = var.newrelic_otel_collector_chart_name
-  newrelic_otel_collector_repository    = var.newrelic_otel_collector_repository
-  newrelic_otel_collector_namespace     = var.aks_namespaces[3]
-  newrelic_otel_collector_chart_version = var.newrelic_otel_collector_chart_version
-  newrelic_cluster_name                 = var.newrelic_cluster_name
-  newrelic_license_key                  = var.newrelic_license_key
-  newrelic_low_data_mode                = var.newrelic_low_data_mode
-  newrelic_important_metrics_only       = var.newrelic_important_metrics_only
+#   dns_prefix                            = var.dns_prefix
+#   newrelic_otel_collector_chart_name    = var.newrelic_otel_collector_chart_name
+#   newrelic_otel_collector_repository    = var.newrelic_otel_collector_repository
+#   newrelic_otel_collector_namespace     = var.aks_namespaces[3]
+#   newrelic_otel_collector_chart_version = var.newrelic_otel_collector_chart_version
+#   newrelic_cluster_name                 = var.newrelic_cluster_name
+#   newrelic_license_key                  = var.newrelic_license_key
+#   newrelic_low_data_mode                = var.newrelic_low_data_mode
+#   newrelic_important_metrics_only       = var.newrelic_important_metrics_only
 
-  depends_on = [ module.aks ]
+#   depends_on = [ module.aks ]
   
-}
+# }
 
-module "service_bus" {
-  source                  = "./modules/azure_service_bus"
+# module "service_bus" {
+#   source                  = "./modules/azure_service_bus"
 
-  dns_prefix              = var.dns_prefix
-  resource_group_name     = module.resource_group.name
-  location                = var.location
-  sb_partitions           = var.sb_partitions
-  sb_subnet_id            = module.vnet.sb_pe_subnet_id
-  sb_private_dns_zone_id  = module.vnet.sb_private_dns_zone_id
-  sb_sku                  = var.sb_sku
-  sb_capacity             = var.sb_capacity
-  sb_max_capacity         = var.sb_max_capacity
-  sb_queues               = var.sb_queues
-  sb_topics               = var.sb_topics
-  sb_subscriptions        = var.sb_subscriptions
-  akv_id                  = module.akv.akv_id
+#   dns_prefix              = var.dns_prefix
+#   resource_group_name     = module.resource_group.name
+#   location                = var.location
+#   sb_partitions           = var.sb_partitions
+#   sb_subnet_id            = module.vnet.sb_pe_subnet_id
+#   sb_private_dns_zone_id  = module.vnet.sb_private_dns_zone_id
+#   sb_sku                  = var.sb_sku
+#   sb_capacity             = var.sb_capacity
+#   sb_max_capacity         = var.sb_max_capacity
+#   sb_queues               = var.sb_queues
+#   sb_topics               = var.sb_topics
+#   sb_subscriptions        = var.sb_subscriptions
+#   akv_id                  = module.akv.akv_id
 
-  depends_on = [ module.resource_group, module.vnet ]
-}
+#   depends_on = [ module.resource_group, module.vnet ]
+# }
 
-module "event_grid" {
-  source = "./modules/event_grid"
+# module "event_grid" {
+#   source = "./modules/event_grid"
 
-  dns_prefix                = var.dns_prefix
-  resource_group_name       = module.resource_group.name
-  location                  = var.location
-  sb_process_queue_id       = module.service_bus.sb_process_queue_id
-  storage_account_id        = module.blob.storage_account_id
-  video_container_name      = module.blob.storage_video_container_name
-  event_delivery_schema     = var.event_delivery_schema
-  event_max_retry_attempts  = var.event_max_retry_attempts
-  event_ttl                 = var.event_ttl
+#   dns_prefix                = var.dns_prefix
+#   resource_group_name       = module.resource_group.name
+#   location                  = var.location
+#   sb_process_queue_id       = module.service_bus.sb_process_queue_id
+#   storage_account_id        = module.blob.storage_account_id
+#   video_container_name      = module.blob.storage_video_container_name
+#   event_delivery_schema     = var.event_delivery_schema
+#   event_max_retry_attempts  = var.event_max_retry_attempts
+#   event_ttl                 = var.event_ttl
 
-  depends_on = [ module.resource_group, module.service_bus, module.blob ]
+#   depends_on = [ module.resource_group, module.service_bus, module.blob ]
 
-}
+# }
 
 # module "apim" {
 #   source                           = "./modules/apim"
