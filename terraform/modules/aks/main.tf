@@ -16,7 +16,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
     auto_scaling_enabled        = var.aks_auto_scaling_enabled
     max_count                   = var.aks_max_count
     min_count                   = var.aks_min_count
-    # Caso comece a falhar, avaliar se a subscription do azure possui Quota disponível para o SKU escolhido através do comando: az vm list-usage --location region -o table
+    # Caso comece a falhar, avaliar se a subscription do azure possui Quota disponível para o SKU escolhido através do comando: az vm list-usage --location region -o table,
+    # ou se o SKU está disponível nas zonas de disponibilidade escolhidas.
     zones                       = var.aks_availability_zones
     node_public_ip_enabled      = false
     temporary_name_for_rotation = var.node_pool_temp_name

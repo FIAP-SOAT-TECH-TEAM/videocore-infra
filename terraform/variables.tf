@@ -157,10 +157,12 @@
     description = "Número mínimo de nós para auto scaling no pool de nós do AKS"
     default     = 1
   }
+  # Desejado: ao menos duas zonas de disponibilidade
+  # Limitação Azure For Students: The zone(s) '2' for resource 'dftnodepool' is not supported. The supported zones for location 'eastus' are '3'"
   variable "aks_availability_zones" {
     type        = list(string)
     description = "Zonas de disponibilidade para o pool de nós do AKS"
-    default = [ "2", "3" ]
+    default = [ "3" ]
   }
   variable "vm_size" {
     type    = string
