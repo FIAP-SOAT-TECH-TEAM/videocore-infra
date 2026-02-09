@@ -88,7 +88,7 @@ resource "azurerm_api_management_logger" "app_insights_logger" {
 # }
 
 
-resource "azurerm_api_management_product" "foodcoreapi_start_product" {
+resource "azurerm_api_management_product" "videocoreapi_start_product" {
   product_id            = var.apim_product_id
   api_management_name   = azurerm_api_management.apim.name
   resource_group_name   = var.resource_group_name
@@ -100,9 +100,9 @@ resource "azurerm_api_management_product" "foodcoreapi_start_product" {
   published             = true
 }
 
-resource "azurerm_api_management_product_policy" "foodcoreapi_start_product_policy" {
+resource "azurerm_api_management_product_policy" "videocoreapi_start_product_policy" {
   api_management_name = azurerm_api_management.apim.name
-  product_id          = azurerm_api_management_product.foodcoreapi_start_product.product_id
+  product_id          = azurerm_api_management_product.videocoreapi_start_product.product_id
   resource_group_name = var.resource_group_name
 
   xml_content = <<XML
@@ -152,11 +152,11 @@ resource "azurerm_api_management_product_policy" "foodcoreapi_start_product_poli
   XML
 }
 
-resource "azurerm_api_management_subscription" "foodcoreapi_start_subscription" {
+resource "azurerm_api_management_subscription" "videocoreapi_start_subscription" {
   api_management_name  = azurerm_api_management.apim.name
   resource_group_name  = var.resource_group_name
 
-  product_id           = azurerm_api_management_product.foodcoreapi_start_product.id
+  product_id           = azurerm_api_management_product.videocoreapi_start_product.id
   display_name         = var.apim_subscription_display_name
   state                = var.apim_subscription_state
 }

@@ -228,12 +228,6 @@
     default = 4
   }
 
-  variable "aks_appgw_zones" {
-    description = "Zonas de disponibilidade para o Application Gateway"
-    type        = list(string)
-    default     = [ "1", "2", "3" ]
-  }
-
 # Blob Storage
   variable "video_container_name" {
     description = "Nome do container para armazenamento dos vídeos"
@@ -606,4 +600,22 @@
     description = "Tempo de vida dos eventos em minutos para eventos que falharem na entrega"
     type        = number
     default     = 1440
+  }
+
+# Public IP
+  variable "aks_ingress_allocation_method" {
+    type    = string
+    default = "Static"
+    description = "Método de alocação do IP público"
+  }
+  variable "aks_ingress_sku" {
+    type    = string
+    default = "Standard"
+    description = "SKU do IP público"
+  }
+  # https://github.com/hashicorp/terraform-provider-azurerm/issues/16470
+  variable "aks_ingress_public_ip_zones" {
+    description = "Zonas de disponibilidade para o IP público do Ingress do AKS"
+    type        = list(string)
+    default     = [ "1", "2", "3" ]
   }

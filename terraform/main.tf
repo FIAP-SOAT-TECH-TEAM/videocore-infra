@@ -5,6 +5,19 @@ module "resource_group" {
   location            = var.location
 }
 
+module "public_ip" {
+  source                        = "./modules/public_ip"
+
+  dns_prefix                    = var.dns_prefix
+  resource_group_name           = module.resource_group.name
+  location                      = var.location
+  aks_ingress_allocation_method = var.aks_ingress_allocation_method
+  aks_ingress_sku               = var.aks_ingress_sku
+  aks_ingress_public_ip_zones   = var.aks_ingress_public_ip_zones
+
+  depends_on                    = [ module.resource_group ]
+}
+
 module "vnet" {
   source                          = "./modules/vnet"
 
@@ -17,8 +30,9 @@ module "vnet" {
   vnet_azfunc_pe_subnet_prefix    = var.vnet_azfunc_pe_subnet_prefix
   vnet_sb_subnet_prefix           = var.vnet_sb_subnet_prefix
   vnet_appgw_subnet_prefix        = var.vnet_appgw_subnet_prefix
+  aks_ingress_public_ip           = module.public_ip.aks_ingress_public_ip.ip_address
 
-  depends_on = [ module.resource_group ]
+  depends_on = [ module.resource_group, module.public_ip ]
 }
 
 module "appgw" {
@@ -27,14 +41,15 @@ module "appgw" {
   dns_prefix                = var.dns_prefix
   resource_group_name       = module.resource_group.name
   location                  = var.location
-  aks_app_gateway_zones     = var.aks_appgw_zones
+  aks_app_gateway_zones     = var.aks_ingress_public_ip_zones
   aks_app_gateway_tier      = var.aks_app_gateway_tier
   aks_appgw_min_capacity    = var.aks_appgw_min_capacity
   aks_appgw_max_capacity    = var.aks_appgw_max_capacity 
   appgw_subnet_id           = module.vnet.appgw_subnet.id
   aks_appgw_private_ip      = module.vnet.aks_ingress_private_ip
+  aks_appgw_public_ip_id    = module.public_ip.aks_ingress_public_ip.id
 
-  depends_on = [ module.resource_group, module.vnet ]
+  depends_on = [ module.resource_group, module.vnet, module.public_ip ]
 }
 
 module "akv" {
@@ -217,6 +232,8 @@ module "event_grid" {
   event_delivery_schema     = var.event_delivery_schema
   event_max_retry_attempts  = var.event_max_retry_attempts
   event_ttl                 = var.event_ttl
+
+  depends_on = [ module.resource_group, module.service_bus, module.blob ]
 
 }
 
