@@ -1,8 +1,10 @@
+# https://registry.terraform.io/providers/hashicorp/azurerm/4.37.0/docs/resources/eventgrid_system_topic
+
 resource "azurerm_eventgrid_system_topic" "storage_topic" {
   name                   = "${var.dns_prefix}-stg-topic"
   resource_group_name    = var.resource_group_name
   location               = var.location
-  source_resource_id     = var.storage_account_id
+  source_arm_resource_id = var.storage_account_id
   topic_type             = "Microsoft.Storage.StorageAccounts"
 
   identity {
