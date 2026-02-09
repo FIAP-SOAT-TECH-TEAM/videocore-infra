@@ -1,0 +1,82 @@
+name: videocore-infra
+services:
+
+  azure-service-bus-emulator:
+    image: mcr.microsoft.com/azure-messaging/servicebus-emulator:latest
+    container_name: videocore-azure-service-bus-emulator
+    restart: unless-stopped
+    volumes:
+      - "./config.json:/ServiceBus_Emulator/ConfigFiles/Config.json"
+    depends_on:
+      - azure-service-bus-emulator-sql-server
+    ports:
+      - "${AZ_SVC_BUS_PORT}:5672"
+      - "${AZ_SVC_BUS_MGMT_PORT}:5300"
+    networks:
+      - videocore-network
+    env_file:
+      - .env
+      
+  azure-service-bus-emulator-sql-server:
+    container_name: "videocore-azure-service-bus-emulator-sql-server"
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    networks:
+      videocore-network:
+        aliases:
+          - "${SQL_SERVER}"
+    env_file:
+      - .env
+    volumes:
+      - az_svc_bus_sql_data:/var/opt/mssql
+
+  azure-blob-storage-emulator:
+    image: mcr.microsoft.com/azure-storage/azurite:latest
+    container_name: videocore-azure-blob-emulator
+    restart: unless-stopped
+    command: azurite -l /data --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0 --debug /data/debug.log
+    ports:
+      - "${AZURE_BLOB_BLOB_PORT}:10000"
+      - "${AZURE_BLOB_QUEUE_PORT}:10001"
+      - "${AZURE_BLOB_TABLE_PORT}:10002"
+    volumes:
+      - azurite_data:/data
+    networks:
+      - videocore-network
+    env_file:
+      - .env
+
+  smtp-server:
+    image: maildev/maildev:latest
+    container_name: videocore-smtp-server
+    restart: unless-stopped
+    ports:
+      - "${SMTP_PORT}:1025"
+      - "${SMTP_UI_PORT}:1080"
+    networks:
+      - videocore-network
+    env_file:
+      - .env
+  
+  localstack:
+    image: localstack/localstack-pro:latest
+    container_name: videocore-localstack
+    restart: unless-stopped
+    ports:
+      - "${LOCALSTACK_EDGE_PORT}:4566"
+      - "4510-4559:4510-4559"
+    networks:
+      - videocore-network
+    volumes:
+      - "localstack_data:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    env_file:
+      - .env
+
+networks:
+  videocore-network:
+    driver: bridge
+
+volumes:
+  az_svc_bus_sql_data:
+  azurite_data:
+  localstack_data:
