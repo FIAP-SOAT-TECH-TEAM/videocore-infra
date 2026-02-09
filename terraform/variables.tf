@@ -158,15 +158,15 @@
     default     = 1
   }
   # Desejado: ao menos duas zonas de disponibilidade
-  # Limitação Azure For Students: The zone(s) '2' for resource 'dftnodepool' is not supported. The supported zones for location 'eastus' are '3'"
+  # Possível Limitação Azure For Students: The zone(s) ... for resource 'dftnodepool' is not supported. The supported zones for location 'brazilsouth' are ..."
   variable "aks_availability_zones" {
     type        = list(string)
     description = "Zonas de disponibilidade para o pool de nós do AKS"
-    default = [ "3" ]
+    default = [ "1", "3" ]
   }
   variable "vm_size" {
     type    = string
-    default = "Standard_D2s_v3"
+    default = "Standard_E2s_v3"
     description = "Tamanho da VM para os nós do AKS"
   }
   variable "identity_type" {
