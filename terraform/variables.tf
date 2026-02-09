@@ -213,7 +213,7 @@
   variable "aks_app_gateway_tier" {
     description = "Tier do Application Gateway para o AKS"
     type        = string
-    default     = "Standard_v2"
+    default     = "Standard"
   }
 
   variable "aks_appgw_min_capacity" {

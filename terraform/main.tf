@@ -218,6 +218,8 @@ module "event_grid" {
   event_max_retry_attempts  = var.event_max_retry_attempts
   event_ttl                 = var.event_ttl
 
+  depends_on = [ module.resource_group, module.service_bus, module.blob ]
+
 }
 
 # module "apim" {
