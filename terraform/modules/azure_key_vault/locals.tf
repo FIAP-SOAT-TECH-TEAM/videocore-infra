@@ -10,7 +10,7 @@ locals {
     )[0]
 
     aws_session_token = regex(
-        "aws_session_token=([^\n\r]+)",
+        "aws_session_token=([^\n\r]*)",
         var.aws_credentials
     )[0]
   
