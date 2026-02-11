@@ -10,7 +10,7 @@ resource "aws_cognito_user_pool" "cognito_user_pool" {
   }
 
   admin_create_user_config {
-    allow_admin_create_user_only = true
+    allow_admin_create_user_only = var.cognito_admin_create_user_only
   }
 }
 

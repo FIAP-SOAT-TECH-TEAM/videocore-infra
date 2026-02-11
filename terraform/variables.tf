@@ -1,4 +1,5 @@
 # Commn
+
   variable "subscription_id" {
     type        = string
     description = "Azure Subscription ID"
@@ -36,6 +37,7 @@
   }
 
 # VNET
+
   variable "vnet_prefix" {
     description = "Prefixo de endereço da rede"
     type        = list(string)
@@ -92,6 +94,7 @@
   }
 
 # AKV Secrets
+
   variable "server_mail_username" {
     type        = string
     description = "Username do servidor de e-mail SMTP"
@@ -212,6 +215,7 @@
   }
 
 # Application Gateway
+
   variable "aks_app_gateway_tier" {
     description = "Tier do Application Gateway para o AKS"
     type        = string
@@ -231,6 +235,7 @@
   }
 
 # Blob Storage
+
   variable "video_container_name" {
     description = "Nome do container para armazenamento dos vídeos"
     type        = string
@@ -253,6 +258,7 @@
   }
 
 # ACR
+
   variable "acr_sku" {
     description = "SKU do ACR"
     type        = string
@@ -338,6 +344,7 @@
   }
 
 # Azure Function
+
   variable "azfunc_sa_account_tier" {
     description = "O nível da conta de armazenamento."
     type        = string
@@ -417,8 +424,15 @@
     }
   }
 
+  variable "cognito_admin_create_user_only" {
+    type        = bool
+    description = "Indica se apenas administradores podem criar usuários no User Pool."
+    default     = false
+  }
+
 
 # Azure Service Bus
+
   variable "sb_sku" {
     description = "SKU do Azure Service Bus Namespace"
     type = string
@@ -584,6 +598,7 @@
   }
 
 # Event Grid
+
   # https://learn.microsoft.com/en-us/azure/event-grid/event-schema-blob-storage?tabs=cloud-event-schema#example-events
   variable "event_delivery_schema" {
     description = "Esquema de entrega dos eventos do Event Grid"
@@ -605,6 +620,7 @@
   }
 
 # Public IP
+
   variable "aks_ingress_allocation_method" {
     type    = string
     default = "Static"

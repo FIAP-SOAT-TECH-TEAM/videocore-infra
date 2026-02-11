@@ -150,6 +150,16 @@
     value       = module.cognito.cognito_implicit_login_url
   }
 
+  output "cognito_user_pool_id" {
+    description = "ID do Cognito User Pool"
+    value       = module.cognito.cognito_user_pool_id
+  }
+
+  output "cognito_user_pool_client_id" {
+    description = "ID do Cognito User Pool Client"
+    value       = module.cognito.cognito_user_pool_client_id
+  }
+
 # Azure Function
 
   output "azfunc_name" {
