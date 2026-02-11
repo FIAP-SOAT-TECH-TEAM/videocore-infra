@@ -13,26 +13,32 @@ show_help() {
   echo "Uso: ./video [comando] [opções]"
   echo
   echo "Comandos disponíveis:"
-  echo "  start:infra      Inicia apenas a infraestrutura (banco)"
-  echo "  stop:infra       Para apenas a infraestrutura"
-  echo "  restart:all      Reinicia todos os serviços da infraestrutura"
-  echo "  az:pub           Publica um vídeo no Azurite e emite um evento no Azure Service Bus"
-  echo "  init:user        Inicializa usuário no LocalStack Cognito"
-  echo "  help             Exibe esta mensagem de ajuda"
+  echo "  start:infra               Inicia apenas a infraestrutura (banco)"
+  echo "  stop:infra                Para apenas a infraestrutura"
+  echo "  restart:all               Reinicia todos os serviços da infraestrutura"
+  echo "  start:observability       Inicia apenas a infraestrutura (banco)"
+  echo "  stop:observability        Para apenas a infraestrutura"
+  echo "  restart:all-observability Reinicia todos os serviços da infraestrutura"
+  echo "  az:pub                    Publica um vídeo no Azurite e emite um evento no Azure Service Bus"
+  echo "  init:user                 Inicializa usuário no LocalStack Cognito"
+  echo "  help                      Exibe esta mensagem de ajuda"
   echo
   echo "Opções:"
   echo "  --force, -f      Força a execução sem confirmação"
   echo
   echo "Exemplos:"
-  echo "  ./video start:infra        Inicia a infraestrutura"
-  echo "  ./video stop:infra         Para a infraestrutura"
-  echo "  ./video restart:all        Reinicia a infraestrutura"
-  echo "  ./video az:pub             Publica um vídeo no Azurite e emite um evento no Azure Service Bus"
-  echo "  ./video az:view            Lista os arquivos do container images no Azurite"
-  echo "  ./video az:download        Baixa o arquivo mais recente do container images no Azurite"
-  echo "  ./video az:delete-all      Deleta todos os blobs do container images no Azurite"
-  echo "  ./video init:user          Inicializa usuário no LocalStack Cognito"
-  echo "  ./video help               Exibe a ajuda"
+  echo "  ./video start:infra               Inicia a infraestrutura"
+  echo "  ./video stop:infra                Para a infraestrutura"
+  echo "  ./video restart:all               Reinicia a infraestrutura"
+  echo "  ./video start:observability       Inicia a infraestrutura de observabilidade"
+  echo "  ./video stop:observability        Para a infraestrutura de observabilidade"
+  echo "  ./video restart:all-observability Reinicia a infraestrutura de observabilidade"
+  echo "  ./video az:pub                    Publica um vídeo no Azurite e emite um evento no Azure Service Bus"
+  echo "  ./video az:view                   Lista os arquivos do container images no Azurite"
+  echo "  ./video az:download               Baixa o arquivo mais recente do container images no Azurite"
+  echo "  ./video az:delete-all             Deleta todos os blobs do container images no Azurite"
+  echo "  ./video init:user                 Inicializa usuário no LocalStack Cognito"
+  echo "  ./video help                      Exibe a ajuda"
 }
 
 # Verificar se o Docker está rodando
@@ -86,6 +92,23 @@ case "$COMMAND" in
   restart:all)
     echo "Reiniciando a infraestrutura..."
     "$SCRIPTS_DIR/infra-restart.sh" $FORCE_FLAG
+    ;;
+  start:observability)
+    echo "Iniciando a infraestrutura de observabilidade..."
+    "$SCRIPTS_DIR/observability/infra-up.sh" $FORCE_FLAG
+    # Verificar se a rede videocore-network existe, se não, criar
+    if ! docker network ls | grep -q videocore-network; then
+      echo "Criando rede compartilhada videocore-network..."
+      docker network create videocore-network
+    fi
+    ;;
+  stop:observability)
+    echo "Parando a infraestrutura de observabilidade..."
+    "$SCRIPTS_DIR/observability/infra-down.sh"
+    ;;
+  restart:all-observability)
+    echo "Reiniciando a infraestrutura de observabilidade..."
+    "$SCRIPTS_DIR/observability/infra-restart.sh" $FORCE_FLAG
     ;;
   az:pub)
     echo "Publicando vídeo no Azurite e emitindo evento no Azure Service Bus..."

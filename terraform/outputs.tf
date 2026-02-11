@@ -151,6 +151,7 @@
   }
 
 # Azure Function
+
   output "azfunc_name" {
     description = "O nome da Azure Function App"
     value       = module.azfunc.azfunc_name
@@ -159,4 +160,16 @@
   output "azfunc_private_dns_fqdn" {
     description = "FQDN do registro A do Azure Functions na zona DNS privada"
     value       = module.vnet.azfunc_private_dns_fqdn
+  }
+
+# Azure Service Bus
+
+  output "sb_process_queue_name" {
+    description = "Nome da fila process.queue"
+    value       = module.service_bus.sb_process_queue_name
+  }
+
+  output "sb_namespace_name" {
+    description = "Nome do namespace do Service Bus"
+    value       = module.service_bus.sb_namespace_name
   }
