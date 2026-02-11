@@ -1,6 +1,18 @@
 resource "aws_cognito_user_pool" "cognito_user_pool" {
   name = "${var.dns_prefix}_user_pool"
 
+  schema {
+    attribute_data_type = "String"
+    name                = "email"
+    required            = true
+    mutable             = true
+
+    string_attribute_constraints {
+      min_length = 5
+      max_length = 2048
+    }
+  }
+
   password_policy {
     minimum_length    = 8
     require_lowercase = true
