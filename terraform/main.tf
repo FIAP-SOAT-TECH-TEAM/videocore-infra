@@ -84,12 +84,13 @@ module "app_insights" {
 }
 
 module "cognito" {
-  source                    = "./modules/cognito"
+  source                          = "./modules/cognito"
   
-  aws_location              = var.aws_location
-  dns_prefix                = var.dns_prefix
-  callback_urls             = var.callback_urls
-  akv_id                    = module.akv.akv_id
+  aws_location                    = var.aws_location
+  cognito_admin_create_user_only  = var.cognito_admin_create_user_only
+  dns_prefix                      = var.dns_prefix
+  callback_urls                   = var.callback_urls
+  akv_id                          = module.akv.akv_id
 
   depends_on = [ module.akv ]
 }

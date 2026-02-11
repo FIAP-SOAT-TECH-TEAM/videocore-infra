@@ -30,3 +30,8 @@
       error_message = "A lista 'callback_urls' não pode estar vazia."
     }
   }
+
+  variable "cognito_admin_create_user_only" {
+    type        = bool
+    description = "Indica se apenas administradores podem criar usuários no User Pool."
+  }
