@@ -13,6 +13,8 @@ resource "aws_cognito_user_pool" "cognito_user_pool" {
     }
   }
 
+  auto_verified_attributes = ["email"]
+
   password_policy {
     minimum_length    = 8
     require_lowercase = true
