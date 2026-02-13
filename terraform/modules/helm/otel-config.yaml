@@ -9,9 +9,9 @@ receivers:
         endpoint: 0.0.0.0:4318
 
 processors:
-  batch:
+  batch: {}
   # Agrupa dados para exportação, converte métricas cumulativas em delta e limita todos os atributos (spans, logs, métricas e resources) a 4095 caracteres para evitar rejeição por payload excessivo.
-  cumulativetodelta:
+  cumulativetodelta: {}
   transform:
     trace_statements:
       - truncate_all(span.attributes, 4095)
