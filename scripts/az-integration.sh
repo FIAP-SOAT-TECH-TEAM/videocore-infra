@@ -101,15 +101,14 @@ EVENT_ID="$REQUEST_ID"
 EVENT_TIME="$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")"
 CONTENT_LENGTH="$(stat -c%s "$VIDEO_PATH")"
 
+# https://learn.microsoft.com/en-us/azure/event-grid/event-schema-blob-storage?tabs=cloud-event-schema#microsoftstorageblobcreated-event
 EVENT_PAYLOAD=$(cat <<EOF
 {
-  "specversion": "1.0",
-  "id": "${EVENT_ID}",
-  "type": "Microsoft.Storage.BlobCreated",
   "source": "/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.Storage/storageAccounts/${STORAGE_ACCOUNT_NAME}",
   "subject": "/blobServices/default/containers/${CONTAINER_NAME}/blobs/${VIDEO_NAME}",
+  "type": "Microsoft.Storage.BlobCreated",
   "time": "${EVENT_TIME}",
-  "datacontenttype": "application/json",
+  "id": "${EVENT_ID}",
   "data": {
     "api": "PutBlockList",
     "clientRequestId": "${EVENT_ID}",
@@ -124,6 +123,7 @@ EVENT_PAYLOAD=$(cat <<EOF
     "storageDiagnostics": {
       "batchId": "${EVENT_ID}"
     }
+  "specversion": "1.0",
   }
 }
 EOF
