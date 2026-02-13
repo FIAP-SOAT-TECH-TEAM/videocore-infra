@@ -30,7 +30,7 @@ resource "helm_release" "otel_collector" {
   name       = "videocore-nr-otel"
   repository = var.otel_collector_repository
   chart      = var.otel_collector_chart_name
-  namespace  = var.newrelic_otel_collector_namespace
+  namespace  = var.monitor_namespace
 
   set {
     name  = "image.repository"
