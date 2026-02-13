@@ -191,12 +191,17 @@ module "helm" {
   dns_prefix                            = var.dns_prefix
   newrelic_otel_collector_chart_name    = var.newrelic_otel_collector_chart_name
   newrelic_otel_collector_repository    = var.newrelic_otel_collector_repository
-  newrelic_otel_collector_namespace     = var.aks_namespaces[3]
+  monitor_namespace                     = var.aks_namespaces[3]
   newrelic_otel_collector_chart_version = var.newrelic_otel_collector_chart_version
   newrelic_cluster_name                 = var.newrelic_cluster_name
   newrelic_license_key                  = var.newrelic_license_key
   newrelic_low_data_mode                = var.newrelic_low_data_mode
   newrelic_important_metrics_only       = var.newrelic_important_metrics_only
+  otel_collector_repository             = var.otel_collector_repository
+  otel_collector_chart_name             = var.otel_collector_chart_name
+  otel_collector_image_repository       = var.otel_collector_image_repository
+  otel_collector_mode                   = var.otel_collector_mode
+  otel_log_exporter_verbosity           = var.otel_log_exporter_verbosity
 
   depends_on = [ module.aks ]
   
