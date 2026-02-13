@@ -42,6 +42,12 @@ resource "helm_release" "otel_collector" {
     value = var.otel_collector_mode
   }
 
+  # https://github.com/open-telemetry/opentelemetry-helm-charts/blob/main/charts/opentelemetry-collector/values.yaml
+  set {
+    name  = "service.enabled"
+    value = "true"
+  }
+
   values = [
     yamlencode({
       config = yamldecode(file("${path.module}/otel-config.yaml"))
