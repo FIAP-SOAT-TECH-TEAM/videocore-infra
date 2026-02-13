@@ -2,7 +2,7 @@ resource "helm_release" "newrelic_otel_collector" {
   name             = "videocore-nr-k8s-otel"
   repository       = var.newrelic_otel_collector_repository
   chart            = var.newrelic_otel_collector_chart_name
-  namespace        = var.newrelic_otel_collector_namespace
+  namespace        = var.monitor_namespace
   version          = var.newrelic_otel_collector_chart_version
 
   set {
