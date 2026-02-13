@@ -9,6 +9,11 @@
     }
   }
 
+variable "monitor_namespace" {
+  description = "Namespace Kubernetes onde Helm charts de monitoramento, como o New Relic OpenTelemetry Collector, serão instalados."
+  type        = string
+}
+
 variable "newrelic_otel_collector_chart_name" {
   description = "Nome do Helm chart do New Relic OpenTelemetry Collector."
   type        = string
@@ -16,11 +21,6 @@ variable "newrelic_otel_collector_chart_name" {
 
 variable "newrelic_otel_collector_repository" {
   description = "Repositório Helm oficial do New Relic que contém o chart nr-k8s-otel-collector."
-  type        = string
-}
-
-variable "newrelic_otel_collector_namespace" {
-  description = "Namespace Kubernetes onde o Helm chart do New Relic OpenTelemetry Collector será instalado."
   type        = string
 }
 
@@ -47,4 +47,30 @@ variable "newrelic_low_data_mode" {
 variable "newrelic_important_metrics_only" {
   description = "Coleta apenas métricas consideradas importantes pelo New Relic."
   type        = bool
+}
+
+
+variable "otel_collector_repository" {
+  description = "Repositório do Helm Chart oficial do OpenTelemetry."
+  type        = string
+}
+
+variable "otel_collector_chart_name" {
+  description = "Nome do chart Helm do OpenTelemetry Collector."
+  type        = string
+}
+
+variable "otel_collector_image_repository" {
+  description = "Imagem Docker utilizada pelo OpenTelemetry Collector (contrib para suportar exporters como New Relic, OTLP, etc)."
+  type        = string
+}
+
+variable "otel_collector_mode" {
+  description = "Modo de execução do OpenTelemetry Collector (daemonset, deployment ou statefulset)."
+  type        = string
+}
+
+variable "otel_log_exporter_verbosity" {
+  description = "Nível de verbosidade do log exporter do OpenTelemetry Collector."
+  type        = string
 }

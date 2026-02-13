@@ -597,6 +597,36 @@
     default     = true
   }
 
+  variable "otel_collector_repository" {
+    description = "Repositório do Helm Chart oficial do OpenTelemetry."
+    type        = string
+    default     = "https://open-telemetry.github.io/opentelemetry-helm-charts"
+  }
+
+  variable "otel_collector_chart_name" {
+    description = "Nome do chart Helm do OpenTelemetry Collector."
+    type        = string
+    default     = "opentelemetry-collector"
+  }
+
+  variable "otel_collector_image_repository" {
+    description = "Imagem Docker utilizada pelo OpenTelemetry Collector (contrib para suportar exporters como New Relic, OTLP, etc)."
+    type        = string
+    default     = "otel/opentelemetry-collector-contrib"
+  }
+
+  variable "otel_collector_mode" {
+    description = "Modo de execução do OpenTelemetry Collector (daemonset, deployment ou statefulset)."
+    type        = string
+    default     = "daemonset"
+  }
+
+  variable "otel_log_exporter_verbosity" {
+    description = "Nível de verbosidade do log exporter do OpenTelemetry Collector."
+    type        = string
+    default     = "detailed"
+  }
+
 # Event Grid
 
   # https://learn.microsoft.com/en-us/azure/event-grid/event-schema-blob-storage?tabs=cloud-event-schema#example-events

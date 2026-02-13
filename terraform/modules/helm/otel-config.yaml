@@ -1,0 +1,48 @@
+# https://github.com/newrelic/newrelic-opentelemetry-examples/blob/main/other-examples/collector/nr-config/otel-config.yaml
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+  # Agrupa dados para exportação, converte métricas cumulativas em delta e limita todos os atributos (spans, logs, métricas e resources) a 4095 caracteres para evitar rejeição por payload excessivo.
+  cumulativetodelta:
+  transform:
+    trace_statements:
+      - truncate_all(span.attributes, 4095)
+      - truncate_all(resource.attributes, 4095)
+    log_statements:
+      - truncate_all(log.attributes, 4095)
+      - truncate_all(resource.attributes, 4095)
+    metric_statements:
+      - truncate_all(datapoint.attributes, 4095)
+      - truncate_all(resource.attributes, 4095)
+
+exporters:
+  debug:
+    verbosity: ${LOG_EXPORTER_LOG_VERBOSITY}
+  # https://docs.newrelic.com/docs/opentelemetry/get-started/collector-processing/opentelemetry-collector-processing-intro/#otlp-exporter
+  otlphttp:
+    endpoint: https://otlp.nr-data.net
+    headers:
+      api-key: ${NEW_RELIC_API_KEY}
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: [cumulativetodelta, transform, batch]
+      exporters: [debug, otlphttp]
+    traces:
+      receivers: [otlp]
+      processors: [transform, batch]
+      exporters: [debug, otlphttp]
+    logs:
+      receivers: [otlp]
+      processors: [transform, batch]
+      exporters: [debug, otlphttp]
