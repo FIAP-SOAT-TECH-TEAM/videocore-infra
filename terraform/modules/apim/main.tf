@@ -129,8 +129,9 @@ resource "azurerm_api_management_product_policy" "videocoreapi_start_product_pol
         <vary-by-header>Authorization</vary-by-header>
 
         <!-- Query parameters que fazem o cache variar -->
-        <vary-by-query-parameter>id</vary-by-query-parameter>
-        <vary-by-query-parameter>topic</vary-by-query-parameter>
+        <vary-by-query-parameter>videoNames</vary-by-query-parameter>
+        <vary-by-query-parameter>videoName</vary-by-query-parameter>
+        <vary-by-query-parameter>requestId</vary-by-query-parameter>
       </cache-lookup>
     </inbound>
 
