@@ -123,8 +123,8 @@ EVENT_PAYLOAD=$(cat <<EOF
     "storageDiagnostics": {
       "batchId": "${EVENT_ID}"
     }
-  "specversion": "1.0",
-  }
+  },
+  "specversion": "1.0"
 }
 EOF
 )
