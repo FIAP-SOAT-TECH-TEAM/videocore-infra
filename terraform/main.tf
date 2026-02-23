@@ -133,6 +133,8 @@ module "blob" {
   location                  = var.location
   video_container_name      = var.video_container_name
   image_container_name      = var.image_container_name
+  frontend_index_document   = var.frontend_index_document
+  frontend_404_document     = var.frontend_404_document
   account_tier              = var.account_tier
   account_replication_type  = var.account_replication_type
   akv_id                    = module.akv.akv_id

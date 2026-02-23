@@ -246,6 +246,16 @@
     type        = string
     default     = "image"
   }
+  variable "frontend_index_document" {
+    description = "Nome do documento index do frontend"
+    type        = string
+    default     = "index.html"
+  }
+  variable "frontend_404_document" {
+    description = "Nome do documento de erro Http 404 do frontend"
+    type        = string
+    default     = "index.html"
+  }
   variable "account_tier" {
     description = "Nivel da conta de armazenamento"
     type        = string
