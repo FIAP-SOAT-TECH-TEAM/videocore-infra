@@ -1,21 +1,26 @@
 # Common
   output "resource_group_name" {
-    value = module.resource_group.name
+    value       = module.resource_group.name
+    description = "Grupo de recursos para implantação de recursos no Azure"
   }
 
   output "location" {
-    value = var.location
+    value       = var.location
+    description = "Região de implantação de recursos no Azure"
   }
 
   output "aws_location" {
-    value = var.aws_location
+    value       = var.aws_location
+    description = "Região de implantação de recursos na AWS"
   }
 
   output "dns_prefix" {
-    value = var.dns_prefix
+    value       = var.dns_prefix
+    description = "Prefixo DNS. Deve ser único globalmente"
   }
   output "tenant_id" {
-    value      = data.azurerm_client_config.current.tenant_id
+    value       = data.azurerm_client_config.current.tenant_id
+    description = "ID do Tenant no Azure"
   }
 
 # VNET
@@ -38,6 +43,13 @@
   output "vnet_aks_node_subnet_prefix" {
     description = "Prefixo de endereço da subrede de nós do AKS"
     value       = var.vnet_aks_node_subnet_prefix
+  }
+
+# Blob
+
+  output "storage_account_name" {
+    description = "Nome da conta de armazenamento"
+    value       = module.blob.storage_account_name
   }
 
 # AKV
@@ -102,8 +114,13 @@
 # APIM
 
   output "apim_gateway_url" {
-    description = "URL do gateway do API Management"
+    description = "URL do gateway HTTP do API Management"
     value       = module.apim.apim_gateway_url
+  }
+
+  output "apim_ws_gateway_url" {
+    description = "URL do gateway WebSocket do API Management"
+    value       = module.apim.apim_ws_gateway_url
   }
 
   output "apim_resource_group" {
@@ -182,4 +199,26 @@
   output "sb_namespace_name" {
     description = "Nome do namespace do Service Bus"
     value       = module.service_bus.sb_namespace_name
+  }
+
+# Front Door
+
+  output "frontdoor_url" {
+    description = "URL pública do Azure Front Door"
+    value       = module.frontdoor.frontdoor_url
+  }
+
+  output "frontdoor_profile_name" {
+    description = "Nome do Profile utilizado no Front Door"
+    value       =  module.frontdoor.frontdoor_profile_name
+  }
+
+  output "frontdoor_endpoint_name" {
+    description = "Nome do Endpoint utilizado no Front Door"
+    value       =  module.frontdoor.frontdoor_endpoint_name
+  }
+
+  output "frontdoor_endpoint_hostname" {
+    description = "Hostname do Endpoint utilizado no Front Door"
+    value       =  module.frontdoor.frontdoor_endpoint_hostname
   }

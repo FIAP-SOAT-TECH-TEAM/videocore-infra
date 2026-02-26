@@ -1,6 +1,11 @@
 output "apim_gateway_url" {
-  description = "URL do gateway do API Management"
+  description = "URL do gateway HTTP do API Management"
   value       = azurerm_api_management.apim.gateway_url
+}
+
+output "apim_ws_gateway_url" {
+  description = "URL do gateway WebSocket do API Management"
+  value       = replace(azurerm_api_management.apim.gateway_url, "https://", "wss://")
 }
 
 output "apim_resource_group" {

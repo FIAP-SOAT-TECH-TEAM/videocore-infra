@@ -677,3 +677,11 @@
     type        = list(string)
     default     = [ "1", "2", "3" ]
   }
+
+# Front Door
+
+  variable "frontdoor_sku" {
+    type        = string
+    description = "SKU do Front Door"
+    default     = "Standard_AzureFrontDoor"
+  }

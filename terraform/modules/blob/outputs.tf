@@ -18,3 +18,13 @@ output "storage_account_connection_string" {
   value       = azurerm_storage_account.stgaccount.primary_connection_string
   sensitive   = true
 }
+
+output "storage_account_name" {
+  description = "Nome da conta de armazenamento"
+  value       = azurerm_storage_account.stgaccount.name
+}
+
+output "static_website_hostname" {
+  value = azurerm_storage_account.stgaccount.primary_web_host
+  description = "Endereço de acesso para aplicações web estáticas"
+}
