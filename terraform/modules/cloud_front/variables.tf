@@ -4,14 +4,9 @@
     description = "Prefixo DNS"
     }
 
-    variable "resource_group_name" {
-    type        = string
-    description = "Nome do Resource Group"
-    }
-
-variable "frontdoor_sku" {
+variable "cloudfront_price_class" {
   type        = string
-  description = "SKU do Front Door"
+  description = "Price Class do CloudFront (ex: PriceClass_100, PriceClass_200, PriceClass_All)"
 }
 
 variable "static_website_hostname" {

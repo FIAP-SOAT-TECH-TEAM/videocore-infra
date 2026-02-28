@@ -270,12 +270,11 @@ module "apim" {
   depends_on = [ module.resource_group, module.vnet, module.app_insights ]
 }
 
-module "frontdoor" {
-  source = "./modules/azure_front_door"
+module "cloudfront" {
+  source = "./modules/cloud_front"
 
   dns_prefix                = var.dns_prefix
-  resource_group_name       = module.resource_group.name
-  frontdoor_sku             = var.frontdoor_sku
+  cloudfront_price_class    = var.cloudfront_price_class
   static_website_hostname   = module.blob.static_website_hostname
 
   depends_on = [ module.resource_group, module.blob ]

@@ -14,6 +14,12 @@
     description = "Região de implantação de recursos na AWS"
   }
 
+  output "aws_credentials" {
+    value       = var.aws_credentials
+    description = "Credenciais da AWS"
+    sensitive   = true
+  }
+
   output "dns_prefix" {
     value       = var.dns_prefix
     description = "Prefixo DNS. Deve ser único globalmente"
@@ -201,24 +207,19 @@
 #     value       = module.service_bus.sb_namespace_name
 #   }
 
-# Front Door
+# Cloud Front
 
-  output "frontdoor_url" {
-    description = "URL pública do Azure Front Door"
-    value       = module.frontdoor.frontdoor_url
+  output "cloudfront_url" {
+    description = "URL pública do CloudFront"
+    value       = module.cloudfront.cloudfront_url
   }
 
-  output "frontdoor_profile_name" {
-    description = "Nome do Profile utilizado no Front Door"
-    value       =  module.frontdoor.frontdoor_profile_name
+  output "cloudfront_distribution_id" {
+    description = "ID da distribuição CloudFront"
+    value       = module.cloudfront.cloudfront_distribution_id
   }
 
-  output "frontdoor_endpoint_name" {
-    description = "Nome do Endpoint utilizado no Front Door"
-    value       =  module.frontdoor.frontdoor_endpoint_name
-  }
-
-  output "frontdoor_endpoint_hostname" {
-    description = "Hostname do Endpoint utilizado no Front Door"
-    value       =  module.frontdoor.frontdoor_endpoint_hostname
+  output "cloudfront_distribution_domain" {
+    description = "Domain name da distribuição CloudFront"
+    value       = module.cloudfront.cloudfront_distribution_domain
   }

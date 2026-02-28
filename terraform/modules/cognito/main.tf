@@ -1,3 +1,6 @@
+# Assinatura Azure For Studetns bloqueia gerenciamento do Entra ID. Portanto, utilizamos o Cognito.
+# https://learn.microsoft.com/en-us/answers/questions/1859556/entra-id-is-not-accessible-for-azure-for-students
+
 resource "aws_cognito_user_pool" "cognito_user_pool" {
   name = "${var.dns_prefix}_user_pool"
 
@@ -37,6 +40,10 @@ resource "aws_cognito_user_pool" "cognito_user_pool" {
 
   admin_create_user_config {
     allow_admin_create_user_only = var.cognito_admin_create_user_only
+  }
+
+  tags = {
+    Name = "${var.dns_prefix}-cognito-user-pool"
   }
 }
 
