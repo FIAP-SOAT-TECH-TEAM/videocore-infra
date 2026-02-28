@@ -63,53 +63,53 @@
     value       = module.akv.akv_name
   }
 
-# AKS
+# # AKS
   
-  output "aks_name" {
-    value = module.aks.aks_name
-  }
+#   output "aks_name" {
+#     value = module.aks.aks_name
+#   }
 
-  output "aks_resource_group" {
-    description = "Resource Group onde o cluster AKS reside"
-    value       = module.aks.aks_resource_group
-  }
+#   output "aks_resource_group" {
+#     description = "Resource Group onde o cluster AKS reside"
+#     value       = module.aks.aks_resource_group
+#   }
 
-  output "aks_secret_identity_client_id" {
-    description = "Client ID da identidade gerenciada do tipo UserAssigned criada para o Azure Key Vault Secrets Provider."
-    value       = module.aks.aks_secret_identity_client_id 
-  }
+#   output "aks_secret_identity_client_id" {
+#     description = "Client ID da identidade gerenciada do tipo UserAssigned criada para o Azure Key Vault Secrets Provider."
+#     value       = module.aks.aks_secret_identity_client_id 
+#   }
 
-  output "aks_worker_namespace_name" {
-    description = "Nome do namespace Kubernetes para o microsserviço de worker"
-    value       = var.aks_namespaces[0]
-  }
+#   output "aks_worker_namespace_name" {
+#     description = "Nome do namespace Kubernetes para o microsserviço de worker"
+#     value       = var.aks_namespaces[0]
+#   }
 
-  output "aks_reports_namespace_name" {
-    description = "Nome do namespace Kubernetes para o microsserviço de reports"
-    value       = var.aks_namespaces[1]
-  }
+#   output "aks_reports_namespace_name" {
+#     description = "Nome do namespace Kubernetes para o microsserviço de reports"
+#     value       = var.aks_namespaces[1]
+#   }
 
-  output "aks_notification_namespace_name" {
-    description = "Nome do namespace Kubernetes para o microsserviço de notification"
-    value       = var.aks_namespaces[2]
-  }
+#   output "aks_notification_namespace_name" {
+#     description = "Nome do namespace Kubernetes para o microsserviço de notification"
+#     value       = var.aks_namespaces[2]
+#   }
 
-  output "aks_monitor_namespace_name" {
-    description = "Nome do namespace Kubernetes para serviços de observabilidade"
-    value       = var.aks_namespaces[3]
-  }
+#   output "aks_monitor_namespace_name" {
+#     description = "Nome do namespace Kubernetes para serviços de observabilidade"
+#     value       = var.aks_namespaces[3]
+#   }
 
-# ACR
+# # ACR
 
-  output "acr_name" {
-    description = "Nome do Azure Container Registry"
-    value       = module.acr.acr_name
-  }
+#   output "acr_name" {
+#     description = "Nome do Azure Container Registry"
+#     value       = module.acr.acr_name
+#   }
 
-  output "acr_resource_group" {
-    description = "Resource Group do ACR"
-    value       = module.acr.acr_resource_group
-  }
+#   output "acr_resource_group" {
+#     description = "Resource Group do ACR"
+#     value       = module.acr.acr_resource_group
+#   }
 
 # APIM
 
@@ -177,29 +177,29 @@
     value       = module.cognito.cognito_user_pool_client_id
   }
 
-# Azure Function
+# # Azure Function
 
-  output "azfunc_name" {
-    description = "O nome da Azure Function App"
-    value       = module.azfunc.azfunc_name
-  }
+#   output "azfunc_name" {
+#     description = "O nome da Azure Function App"
+#     value       = module.azfunc.azfunc_name
+#   }
 
-  output "azfunc_private_dns_fqdn" {
-    description = "FQDN do registro A do Azure Functions na zona DNS privada"
-    value       = module.vnet.azfunc_private_dns_fqdn
-  }
+#   output "azfunc_private_dns_fqdn" {
+#     description = "FQDN do registro A do Azure Functions na zona DNS privada"
+#     value       = module.vnet.azfunc_private_dns_fqdn
+#   }
 
-# Azure Service Bus
+# # Azure Service Bus
 
-  output "sb_process_queue_name" {
-    description = "Nome da fila process.queue"
-    value       = module.service_bus.sb_process_queue_name
-  }
+#   output "sb_process_queue_name" {
+#     description = "Nome da fila process.queue"
+#     value       = module.service_bus.sb_process_queue_name
+#   }
 
-  output "sb_namespace_name" {
-    description = "Nome do namespace do Service Bus"
-    value       = module.service_bus.sb_namespace_name
-  }
+#   output "sb_namespace_name" {
+#     description = "Nome do namespace do Service Bus"
+#     value       = module.service_bus.sb_namespace_name
+#   }
 
 # Front Door
 
