@@ -13,13 +13,7 @@
     value       = var.aws_location
     description = "Região de implantação de recursos na AWS"
   }
-
-  output "aws_credentials" {
-    value       = var.aws_credentials
-    description = "Credenciais da AWS"
-    sensitive   = true
-  }
-
+  
   output "dns_prefix" {
     value       = var.dns_prefix
     description = "Prefixo DNS. Deve ser único globalmente"
