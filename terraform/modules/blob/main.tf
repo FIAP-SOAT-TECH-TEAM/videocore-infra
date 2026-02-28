@@ -24,6 +24,12 @@ resource "azurerm_storage_account_static_website" "frontend" {
   error_404_document = var.frontend_404_document
 }
 
+resource "azurerm_role_assignment" "blob_data_contributor" {
+  scope                = azurerm_storage_account.stgaccount.id
+  role_definition_name = "Storage Blob Data Owner"
+  principal_id         = data.azurerm_client_config.current.object_id
+}
+
 resource "azurerm_key_vault_secret" "az_storage_connection_string" {
   name         = "az-storage-connection-string"
   value        = azurerm_storage_account.stgaccount.primary_connection_string
