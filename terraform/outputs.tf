@@ -1,21 +1,26 @@
 # Common
   output "resource_group_name" {
-    value = module.resource_group.name
+    value       = module.resource_group.name
+    description = "Grupo de recursos para implantação de recursos no Azure"
   }
 
   output "location" {
-    value = var.location
+    value       = var.location
+    description = "Região de implantação de recursos no Azure"
   }
 
   output "aws_location" {
-    value = var.aws_location
+    value       = var.aws_location
+    description = "Região de implantação de recursos na AWS"
   }
 
   output "dns_prefix" {
-    value = var.dns_prefix
+    value       = var.dns_prefix
+    description = "Prefixo DNS. Deve ser único globalmente"
   }
   output "tenant_id" {
-    value      = data.azurerm_client_config.current.tenant_id
+    value       = data.azurerm_client_config.current.tenant_id
+    description = "ID do Tenant no Azure"
   }
 
 # VNET
@@ -40,6 +45,13 @@
     value       = var.vnet_aks_node_subnet_prefix
   }
 
+# Blob
+
+  output "storage_account_name" {
+    description = "Nome da conta de armazenamento"
+    value       = module.blob.storage_account_name
+  }
+
 # AKV
   
   output "akv_id" {
@@ -51,59 +63,64 @@
     value       = module.akv.akv_name
   }
 
-# AKS
+# # AKS
   
-  output "aks_name" {
-    value = module.aks.aks_name
-  }
+#   output "aks_name" {
+#     value = module.aks.aks_name
+#   }
 
-  output "aks_resource_group" {
-    description = "Resource Group onde o cluster AKS reside"
-    value       = module.aks.aks_resource_group
-  }
+#   output "aks_resource_group" {
+#     description = "Resource Group onde o cluster AKS reside"
+#     value       = module.aks.aks_resource_group
+#   }
 
-  output "aks_secret_identity_client_id" {
-    description = "Client ID da identidade gerenciada do tipo UserAssigned criada para o Azure Key Vault Secrets Provider."
-    value       = module.aks.aks_secret_identity_client_id 
-  }
+#   output "aks_secret_identity_client_id" {
+#     description = "Client ID da identidade gerenciada do tipo UserAssigned criada para o Azure Key Vault Secrets Provider."
+#     value       = module.aks.aks_secret_identity_client_id 
+#   }
 
-  output "aks_worker_namespace_name" {
-    description = "Nome do namespace Kubernetes para o microsserviço de worker"
-    value       = var.aks_namespaces[0]
-  }
+#   output "aks_worker_namespace_name" {
+#     description = "Nome do namespace Kubernetes para o microsserviço de worker"
+#     value       = var.aks_namespaces[0]
+#   }
 
-  output "aks_reports_namespace_name" {
-    description = "Nome do namespace Kubernetes para o microsserviço de reports"
-    value       = var.aks_namespaces[1]
-  }
+#   output "aks_reports_namespace_name" {
+#     description = "Nome do namespace Kubernetes para o microsserviço de reports"
+#     value       = var.aks_namespaces[1]
+#   }
 
-  output "aks_notification_namespace_name" {
-    description = "Nome do namespace Kubernetes para o microsserviço de notification"
-    value       = var.aks_namespaces[2]
-  }
+#   output "aks_notification_namespace_name" {
+#     description = "Nome do namespace Kubernetes para o microsserviço de notification"
+#     value       = var.aks_namespaces[2]
+#   }
 
-  output "aks_monitor_namespace_name" {
-    description = "Nome do namespace Kubernetes para serviços de observabilidade"
-    value       = var.aks_namespaces[3]
-  }
+#   output "aks_monitor_namespace_name" {
+#     description = "Nome do namespace Kubernetes para serviços de observabilidade"
+#     value       = var.aks_namespaces[3]
+#   }
 
-# ACR
+# # ACR
 
-  output "acr_name" {
-    description = "Nome do Azure Container Registry"
-    value       = module.acr.acr_name
-  }
+#   output "acr_name" {
+#     description = "Nome do Azure Container Registry"
+#     value       = module.acr.acr_name
+#   }
 
-  output "acr_resource_group" {
-    description = "Resource Group do ACR"
-    value       = module.acr.acr_resource_group
-  }
+#   output "acr_resource_group" {
+#     description = "Resource Group do ACR"
+#     value       = module.acr.acr_resource_group
+#   }
 
 # APIM
 
   output "apim_gateway_url" {
-    description = "URL do gateway do API Management"
+    description = "URL do gateway HTTP do API Management"
     value       = module.apim.apim_gateway_url
+  }
+
+  output "apim_ws_gateway_url" {
+    description = "URL do gateway WebSocket do API Management"
+    value       = module.apim.apim_ws_gateway_url
   }
 
   output "apim_resource_group" {
@@ -160,26 +177,48 @@
     value       = module.cognito.cognito_user_pool_client_id
   }
 
-# Azure Function
+# # Azure Function
 
-  output "azfunc_name" {
-    description = "O nome da Azure Function App"
-    value       = module.azfunc.azfunc_name
+#   output "azfunc_name" {
+#     description = "O nome da Azure Function App"
+#     value       = module.azfunc.azfunc_name
+#   }
+
+#   output "azfunc_private_dns_fqdn" {
+#     description = "FQDN do registro A do Azure Functions na zona DNS privada"
+#     value       = module.vnet.azfunc_private_dns_fqdn
+#   }
+
+# # Azure Service Bus
+
+#   output "sb_process_queue_name" {
+#     description = "Nome da fila process.queue"
+#     value       = module.service_bus.sb_process_queue_name
+#   }
+
+#   output "sb_namespace_name" {
+#     description = "Nome do namespace do Service Bus"
+#     value       = module.service_bus.sb_namespace_name
+#   }
+
+# Front Door
+
+  output "frontdoor_url" {
+    description = "URL pública do Azure Front Door"
+    value       = module.frontdoor.frontdoor_url
   }
 
-  output "azfunc_private_dns_fqdn" {
-    description = "FQDN do registro A do Azure Functions na zona DNS privada"
-    value       = module.vnet.azfunc_private_dns_fqdn
+  output "frontdoor_profile_name" {
+    description = "Nome do Profile utilizado no Front Door"
+    value       =  module.frontdoor.frontdoor_profile_name
   }
 
-# Azure Service Bus
-
-  output "sb_process_queue_name" {
-    description = "Nome da fila process.queue"
-    value       = module.service_bus.sb_process_queue_name
+  output "frontdoor_endpoint_name" {
+    description = "Nome do Endpoint utilizado no Front Door"
+    value       =  module.frontdoor.frontdoor_endpoint_name
   }
 
-  output "sb_namespace_name" {
-    description = "Nome do namespace do Service Bus"
-    value       = module.service_bus.sb_namespace_name
+  output "frontdoor_endpoint_hostname" {
+    description = "Hostname do Endpoint utilizado no Front Door"
+    value       =  module.frontdoor.frontdoor_endpoint_hostname
   }

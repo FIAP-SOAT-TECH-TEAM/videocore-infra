@@ -246,6 +246,16 @@
     type        = string
     default     = "image"
   }
+  variable "frontend_index_document" {
+    description = "Nome do documento index do frontend"
+    type        = string
+    default     = "index.html"
+  }
+  variable "frontend_404_document" {
+    description = "Nome do documento de erro Http 404 do frontend"
+    type        = string
+    default     = "404.html"
+  }
   variable "account_tier" {
     description = "Nivel da conta de armazenamento"
     type        = string
@@ -666,4 +676,12 @@
     description = "Zonas de disponibilidade para o IP público do Ingress do AKS"
     type        = list(string)
     default     = [ "1", "2", "3" ]
+  }
+
+# Front Door
+
+  variable "frontdoor_sku" {
+    type        = string
+    description = "SKU do Front Door"
+    default     = "Standard_AzureFrontDoor"
   }

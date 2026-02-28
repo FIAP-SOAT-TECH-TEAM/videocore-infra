@@ -37,6 +37,14 @@
     description = "Nome do container para armazenamento das imagens capturadas do vídeo"
     type        = string
   }
+  variable "frontend_index_document" {
+    description = "Nome do documento index do frontend"
+    type        = string
+  }
+  variable "frontend_404_document" {
+    description = "Nome do documento de erro Http 404 do frontend"
+    type        = string
+  }
   variable "account_tier" {
     description = "Nivel da conta de armazenamento"
     type        = string
