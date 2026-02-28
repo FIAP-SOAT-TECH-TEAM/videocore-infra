@@ -678,10 +678,10 @@
     default     = [ "1", "2", "3" ]
   }
 
-# Front Door
+# Cloud Front
 
-  variable "frontdoor_sku" {
+  variable "cloudfront_price_class" {
     type        = string
-    description = "SKU do Front Door"
-    default     = "Standard_AzureFrontDoor"
+    description = "Price Class do CloudFront (ex: PriceClass_100, PriceClass_200, PriceClass_All)"
+    default     = "PriceClass_100"
   }
