@@ -134,7 +134,9 @@ module "blob" {
   video_container_name      = var.video_container_name
   image_container_name      = var.image_container_name
   frontend_index_document   = var.frontend_index_document
-  frontend_404_document     = var.frontend_404_document
+  # Aplicação SPA: o documento de erro deve ser o mesmo do index para que as rotas do frontend funcionem corretamente (Client Side Routing)
+  # https://learn.microsoft.com/en-us/answers/questions/1340536/my-react-static-web-app-returns-404-after-reload-e
+  frontend_404_document     = var.frontend_index_document
   account_tier              = var.account_tier
   account_replication_type  = var.account_replication_type
   akv_id                    = module.akv.akv_id
