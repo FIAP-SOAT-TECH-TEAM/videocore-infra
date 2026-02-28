@@ -251,6 +251,11 @@
     type        = string
     default     = "index.html"
   }
+  variable "frontend_404_document" {
+    description = "Nome do documento de erro Http 404 do frontend"
+    type        = string
+    default     = "404.html"
+  }
   variable "account_tier" {
     description = "Nivel da conta de armazenamento"
     type        = string
