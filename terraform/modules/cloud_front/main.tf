@@ -52,7 +52,6 @@ resource "aws_cloudfront_distribution" "cf_distribution" {
 
   viewer_certificate {
     cloudfront_default_certificate = true
-    minimum_protocol_version       = "TLSv1.2_2021"
   }
 
   tags = {
@@ -63,12 +62,20 @@ resource "aws_cloudfront_distribution" "cf_distribution" {
 resource "null_resource" "update_stgaccount_cors" {
   depends_on = [aws_cloudfront_distribution.cf_distribution]
 
+  triggers = {
+    cloudfront_url = local.cloudfront_url
+  }
+
   provisioner "local-exec" {
     command = <<EOT
-      az storage account blob-service-properties update \
-        --account-name ${var.storage_account_name} \
-        --resource-group ${var.resource_group_name} \
-        --cors-rule '[{"allowedHeaders":["*"],"allowedMethods":["GET","POST","PUT","DELETE","OPTIONS","HEAD","MERGE"],"allowedOrigins":["${local.cloudfront_url}"],"exposedHeaders":["*"],"maxAgeInSeconds":3600}]'
-    EOT
+az storage cors add \
+  --account-name ${var.storage_account_name} \
+  --services b \
+  --methods GET POST PUT DELETE OPTIONS HEAD MERGE \
+  --origins ${local.cloudfront_url} \
+  --allowed-headers "*" \
+  --exposed-headers "*" \
+  --max-age 3600
+EOT
   }
 }
