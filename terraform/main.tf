@@ -274,6 +274,8 @@ module "cloudfront" {
   source = "./modules/cloud_front"
 
   dns_prefix                = var.dns_prefix
+  resource_group_name       = var.resource_group_name
+  storage_account_name      = module.blob.storage_account_name 
   cloudfront_price_class    = var.cloudfront_price_class
   static_website_hostname   = module.blob.static_website_hostname
 
