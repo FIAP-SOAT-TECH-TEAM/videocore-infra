@@ -1,6 +1,6 @@
 output "cloudfront_url" {
   description = "URL pública do CloudFront"
-  value       = "https://${aws_cloudfront_distribution.cf_distribution.domain_name}"
+  value       = local.cloudfront_url
 }
 
 output "cloudfront_distribution_id" {

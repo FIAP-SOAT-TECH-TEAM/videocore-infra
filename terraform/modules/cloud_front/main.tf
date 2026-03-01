@@ -59,3 +59,16 @@ resource "aws_cloudfront_distribution" "cf_distribution" {
     Name = "${var.dns_prefix}-cloudfront"
   }
 }
+
+resource "null_resource" "update_stgaccount_cors" {
+  depends_on = [aws_cloudfront_distribution.cf_distribution]
+
+  provisioner "local-exec" {
+    command = <<EOT
+      az storage account blob-service-properties update \
+        --account-name ${var.storage_account_name} \
+        --resource-group ${var.resource_group_name} \
+        --cors-rule '[{"allowedHeaders":["*"],"allowedMethods":["GET","POST","PUT","DELETE","OPTIONS","HEAD","MERGE"],"allowedOrigins":["${local.cloudfront_url}"],"exposedHeaders":["*"],"maxAgeInSeconds":3600}]'
+    EOT
+  }
+}
