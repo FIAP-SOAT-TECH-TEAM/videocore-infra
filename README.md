@@ -16,6 +16,8 @@ Infraestrutura base do ecossistema VideoCore, provisionando AKS, Application Gat
   <a href="#contribuicao">Contribuição</a>
 </div><br>
 
+> 📽️ Vídeo de demonstração da arquitetura: [https://youtu.be/k3XbPRxmjCw](https://youtu.be/k3XbPRxmjCw)<br>
+
 ---
 
 <h2 id="visao-geral">📋 Visão Geral</h2>
@@ -260,6 +262,17 @@ make build
 2. Implemente suas alterações
 3. Abra um Pull Request
 4. Aguarde aprovação de um CODEOWNER
+
+### Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
+
+---
+
+<div align="center">
+  <strong>FIAP - Pós-graduação em Arquitetura de Software</strong><br>
+  Tech Challenge 4
+</div>
 
 ### Licença
 
