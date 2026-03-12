@@ -61,7 +61,7 @@ O **VideoCore Infra** é o repositório responsável por provisionar toda a infr
 
 ### Key Points
 
-- Arquitetura Orientada a Eventos `(EDA)`;
+- Arquitetura de Microsserviços + Arquitetura Orientada a Eventos `(EDA)`;
 - Comunicação assíncrona entre todos os microsserviços, maximizando a resiliência e evitando a necessidade de implementação de `Circuit Breakers`, gerenciamento de `Timeout` ou `Retries` por parte do cliente;
   - O processamento do vídeo é assegurado pelo `Azure Service Bus`.
 - Utilização de `Pre-Signed URLs` para upload/download dos vídeos, removendo a responsabilidade de gerenciamento disto pelos microsserviços, além de reduzir gastos no `APIM`. Agora eles apenas geram as `URLs`;
